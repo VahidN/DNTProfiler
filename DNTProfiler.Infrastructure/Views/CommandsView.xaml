@@ -73,7 +73,7 @@
                                     </Button>
                                     <highlighter:SyntaxHighlightTextBox
                                         Grid.Column="1"
-                                        Text="{Binding Sql, Mode=OneTime}"
+                                        Text="{Binding Sql}"
                                         Margin="1"
                                         IsReadOnly="True"
                                         Highlighter="sql"
