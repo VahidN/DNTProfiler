@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>DNTProfiler.NHibernate.Core</id>
+    <version>$version$</version>
+    <authors>Vahid Nasiri</authors>
+    <owners>Vahid Nasiri</owners>
+    <licenseUrl>https://github.com/VahidN/DNTProfiler/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/VahidN/DNTProfiler/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>DNTProfiler.NHibernate.Core is an NHibernate 4.0+ profiler. To view its real-time collected information and reports, you need to download the DNTProfiler application too.</description>
+    <summary>DNTProfiler.NHibernate.Core is an NHibernate 4.0+ profiler.</summary>
+    <language>en-US</language>
+    <tags>Profiler NHibernate Performance ORM Analyzers Interceptor</tags>
+  </metadata>
+  <files>
+    <file src="bin\Release\NET40\DNTProfiler*.dll" target="lib\net40" />
+    <file src="bin\Release\NET45\DNTProfiler*.dll" target="lib\net45" />
+    <file src="readme.txt" target="" />
+  </files>
+</package>

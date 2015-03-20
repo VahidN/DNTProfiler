@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="DNTProfiler.Common.Controls.Highlighter.SyntaxHighlightTextBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:highlighter="clr-namespace:DNTProfiler.Common.Controls.Highlighter"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <TextBox x:Name="TextBox1" TextWrapping="NoWrap" Foreground="#00000000"
+                 AcceptsReturn="True" AcceptsTab="True" HorizontalScrollBarVisibility="Auto"
+                 VerticalScrollBarVisibility="Auto"
+                 FontFamily="Consolas"
+                 FontSize="14">
+            <TextBox.Template>
+                <ControlTemplate>
+                    <Border Background="White" BorderThickness="{TemplateBinding BorderThickness}"
+                            BorderBrush="{TemplateBinding BorderBrush}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <highlighter:DrawingControl x:Name="PART_LineNumbersCanvas" Grid.Column="0" ClipToBounds="True" />
+
+                            <Line Grid.Column="1" Margin="2,0,5,0" Stroke="Gray" StrokeThickness="1" Y2="1" Stretch="Fill"
+                                  StrokeDashArray="1,1" RenderOptions.EdgeMode="Aliased" x:Name="lineNumbersSeparator" />
+
+                            <Grid Grid.Column="2">
+                                <Grid Margin="{TemplateBinding Padding}">
+                                    <highlighter:DrawingControl x:Name="PART_RenderCanvas" ClipToBounds="True"
+                                                                TextOptions.TextRenderingMode="ClearType" TextOptions.TextFormattingMode="Display" />
+                                </Grid>
+                                <ScrollViewer x:Name="PART_ContentHost" Background="#00FFFFFF" />
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </TextBox.Template>
+        </TextBox>
+    </Grid>
+</UserControl>

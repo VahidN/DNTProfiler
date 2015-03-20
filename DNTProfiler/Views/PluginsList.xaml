@@ -1,0 +1,129 @@
+﻿<UserControl x:Class="DNTProfiler.Views.PluginsList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:behaviors="clr-namespace:DNTProfiler.Common.Behaviors;assembly=DNTProfiler.Common"
+             xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+             mc:Ignorable="d"
+             x:Name="ThisUserControl"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <TabControl MinWidth="200" Margin="3,8,3,3">
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock  Foreground="White" Text="Plugins" />
+                        <Label Content="{Binding GuiModelData.PluginsCount}"
+                               Margin="3 0 0 0"
+                               Style="{StaticResource CircularLabel}"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <ScrollViewer
+                    VerticalScrollBarVisibility="Auto"
+                    HorizontalScrollBarVisibility="Auto">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBox Grid.Row="0" behaviors:TextboxHelper.Watermark="Search"
+                                 Text="{Binding GuiModelData.PluginSearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <ListView ItemsSource="{Binding}"
+                                  Grid.Row="1"
+                                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                  SelectedItem="{Binding DataContext.GuiModelData.SelectedPlugin, ElementName=ThisUserControl}" MinHeight="100"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                  ScrollViewer.CanContentScroll="True"
+                                  behaviors:AutoSizeListViewColumns.Enable="True"
+                                  VirtualizingStackPanel.IsVirtualizing="True"
+                                  VirtualizingStackPanel.VirtualizationMode="Recycling"
+                                  behaviors:GridViewSortBehavior.AutoSort="True"
+                                  behaviors:GridViewSortBehavior.ResetSort="{Binding DataContext.GuiModelData.ResetSort, ElementName=ThisUserControl}"
+                                  Margin="3">
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel
+                                        IsVirtualizing="True"
+                                        VirtualizationMode="Recycling" />
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+
+                            <ListView.DataContext>
+                                <CollectionViewSource Source="{Binding GuiModelData.Plugins}">
+                                    <CollectionViewSource.SortDescriptions>
+                                        <componentModel:SortDescription PropertyName="Category" />
+                                        <componentModel:SortDescription PropertyName="Header" />
+                                    </CollectionViewSource.SortDescriptions>
+                                    <CollectionViewSource.GroupDescriptions>
+                                        <PropertyGroupDescription PropertyName="Category"/>
+                                    </CollectionViewSource.GroupDescriptions>
+                                </CollectionViewSource>
+                            </ListView.DataContext>
+                            <ListView.GroupStyle>
+                                <GroupStyle>
+                                    <GroupStyle.ContainerStyle>
+                                        <Style TargetType="{x:Type GroupItem}">
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate>
+                                                        <Expander IsExpanded="True">
+                                                            <Expander.Header>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <TextBlock  Foreground="White" Text="{Binding Name}" />
+                                                                    <Label Content="{Binding ItemCount}"
+                                                                           Margin="3 0 0 0"
+                                                                           Style="{StaticResource CircularLabel}"/>
+                                                                </StackPanel>
+                                                            </Expander.Header>
+                                                            <Expander.Content>
+                                                                <ItemsPresenter />
+                                                            </Expander.Content>
+                                                        </Expander>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </GroupStyle.ContainerStyle>
+                                </GroupStyle>
+                            </ListView.GroupStyle>
+
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Width="190" behaviors:GridViewSortBehavior.PropertyName="ProfilerPlugin.PluginMetadata.PluginName">
+                                        <GridViewColumn.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="/Themes/Images/Assembly.png" Margin="2" />
+                                                <TextBlock Text="Plugin" Margin="2" />
+                                            </StackPanel>
+                                        </GridViewColumn.Header>
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Header, Mode=OneTime}"
+                                                           FlowDirection="LeftToRight" ToolTip="{Binding Description}"
+                                                           Margin="2" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Width="40" behaviors:GridViewSortBehavior.PropertyName="ProfilerPlugin.PluginMetadata.NotificationsCount">
+                                        <GridViewColumn.Header>
+                                            <Image Source="/Themes/Images/bell.png" Height="16" Width="16" Margin="2"
+                                                   ToolTip="Notifications Count"
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </GridViewColumn.Header>
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding NotificationsCount}" FlowDirection="LeftToRight" Margin="2" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

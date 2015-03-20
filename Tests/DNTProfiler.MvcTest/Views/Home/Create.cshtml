@@ -1,0 +1,41 @@
+﻿@model DNTProfiler.TestEFContext.Domain.Product
+@{
+    ViewBag.Title = "Create";
+}
+<h2>
+    Create
+</h2>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Product</legend>
+        <div class="editor-label">
+            Category:
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("CategoryId", (SelectList)ViewBag.CategoriesList)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Price)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Price)
+            @Html.ValidationMessageFor(model => model.Price)
+        </div>
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

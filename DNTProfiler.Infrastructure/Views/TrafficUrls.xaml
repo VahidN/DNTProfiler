@@ -1,0 +1,186 @@
+﻿<UserControl x:Class="DNTProfiler.Infrastructure.Views.TrafficUrls"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:behaviors="clr-namespace:DNTProfiler.Common.Behaviors;assembly=DNTProfiler.Common"
+             xmlns:converters="clr-namespace:DNTProfiler.Common.Converters;assembly=DNTProfiler.Common"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <converters:ObjectToJsonConverter x:Key="ParametersToJsonConverter" />
+    </UserControl.Resources>
+    <Grid x:Name="ThisGrid">
+        <ListView ItemsSource="{Binding GuiModelData.RelatedTrafficUrls}" Name="ThisListView"
+                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                      SelectedItem="{Binding GuiModelData.SelectedTrafficUrl}" MinHeight="100"
+                      ScrollViewer.CanContentScroll="True"
+                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                      VirtualizingStackPanel.IsVirtualizing="True"
+                      VirtualizingStackPanel.VirtualizationMode="Recycling"
+                      behaviors:GridViewSortBehavior.AutoSort="True"
+                      behaviors:GridViewSortBehavior.ResetSort="{Binding GuiModelData.ResetSort}"
+                      Margin="3">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel 
+                        IsVirtualizing="True" 
+                        VirtualizationMode="Recycling" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="30">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Width="20" Height="20"
+                                        Command="{Binding DataContext.DoOpenPopupToolTip, ElementName=ThisGrid}"
+                                        CommandParameter="{Binding Converter={StaticResource ParametersToJsonConverter}}">
+                                    <Image Source="Images/json.png" Width="16" Height="16" />
+                                </Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="200" Header="Url" behaviors:GridViewSortBehavior.PropertyName="Url">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Url, Mode=OneTime}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="100" Header="Contexts" behaviors:GridViewSortBehavior.PropertyName="NumberOfContexts">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding NumberOfContexts}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="100" Header="Commands" behaviors:GridViewSortBehavior.PropertyName="ContextStatistics.NumberOfQueries">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding ContextStatistics.NumberOfQueries}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="100" Header="Rows Returned" behaviors:GridViewSortBehavior.PropertyName="ContextStatistics.TotalNumberOfRowsReturned">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding ContextStatistics.TotalNumberOfRowsReturned}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="100" Header="Exceptions" behaviors:GridViewSortBehavior.PropertyName="ContextStatistics.NumberOfExceptions">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding ContextStatistics.NumberOfExceptions}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="100" Header="Connections" behaviors:GridViewSortBehavior.PropertyName="ContextStatistics.NumberOfConnections">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding ContextStatistics.NumberOfConnections}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="100" Header="Transactions" behaviors:GridViewSortBehavior.PropertyName="ContextStatistics.NumberOfTransactions">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding ContextStatistics.NumberOfTransactions}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="90" Header="Selects" behaviors:GridViewSortBehavior.PropertyName="CommandStatistics.SelectsCount">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CommandStatistics.SelectsCount}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="90" Header="Inserts" behaviors:GridViewSortBehavior.PropertyName="CommandStatistics.InsertsCount">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CommandStatistics.InsertsCount}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="90" Header="Updates" behaviors:GridViewSortBehavior.PropertyName="CommandStatistics.UpdatesCount">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CommandStatistics.UpdatesCount}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="90" Header="Deletes" behaviors:GridViewSortBehavior.PropertyName="CommandStatistics.DeletesCount">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CommandStatistics.DeletesCount}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="120" Header="Likes (Full table scan)" behaviors:GridViewSortBehavior.PropertyName="CommandStatistics.LikesCount">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CommandStatistics.LikesCount}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="90" Header="Joins" behaviors:GridViewSortBehavior.PropertyName="CommandStatistics.JoinsCount">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CommandStatistics.JoinsCount}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="150" Header="Committed Transactions" behaviors:GridViewSortBehavior.PropertyName="ContextStatistics.NumberOfCommittedTransactions">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding ContextStatistics.NumberOfCommittedTransactions}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="150" Header="RolledBack Transactions" behaviors:GridViewSortBehavior.PropertyName="ContextStatistics.NumberOfRolledBackTransactions">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding ContextStatistics.NumberOfRolledBackTransactions}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="170" Header="Queries Execution Time (ms)" behaviors:GridViewSortBehavior.PropertyName="ContextStatistics.TotalQueryExecutionTime">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding ContextStatistics.TotalQueryExecutionTime}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="170" Header="Connections Open Time (ms)" behaviors:GridViewSortBehavior.PropertyName="ContextStatistics.TotalConnectionOpenTime">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding ContextStatistics.TotalConnectionOpenTime}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Command="{Binding DoCopySelectedLine}"
+                                  CommandParameter="{Binding GuiModelData.SelectedTrafficUrl}"
+                              Header="Copy selected line to clipboard">
+                        <MenuItem.Icon>
+                            <Image Stretch="UniformToFill" Width="16" Height="16"  Source="Images/CopyHS.png" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Command="{Binding DoCopyAllLines}"
+                              CommandParameter="{Binding GuiModelData.RelatedTrafficUrls}"
+                              Header="Copy all lines to clipboard">
+                        <MenuItem.Icon>
+                            <Image Stretch="UniformToFill" Width="16" Height="16" Source="Images/copy.png" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </ListView.ContextMenu>
+        </ListView>
+    </Grid>
+</UserControl>

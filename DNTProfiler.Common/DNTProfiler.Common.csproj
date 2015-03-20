@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8915B3A9-F138-4394-BD73-87AE07D20399}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DNTProfiler.Common</RootNamespace>
+    <AssemblyName>DNTProfiler.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Expression.Blend.Sdk.1.0.2\lib\net40-client\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\DNTProfiler.MetaData\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Behaviors\AutoSizeListViewColumns.cs" />
+    <Compile Include="Behaviors\DelayedUpdateBehavior.cs" />
+    <Compile Include="Behaviors\FolderBrowserDialogBehavior.cs" />
+    <Compile Include="Behaviors\GridViewSortBehavior.cs" />
+    <Compile Include="Behaviors\TextboxHelper.cs" />
+    <Compile Include="Behaviors\WebBrowserBehavior.cs" />
+    <Compile Include="ClipboardUtils\ListToClipboard.cs" />
+    <Compile Include="Controls\BusyIndicator.cs" />
+    <Compile Include="Controls\DialogManagement\Contracts\DialogCloseBehavior.cs" />
+    <Compile Include="Controls\DialogManagement\Contracts\DialogMode.cs" />
+    <Compile Include="Controls\DialogManagement\Contracts\DialogResultState.cs" />
+    <Compile Include="Controls\DialogManagement\Contracts\IDialog.cs" />
+    <Compile Include="Controls\DialogManagement\Contracts\IDialogHost.cs" />
+    <Compile Include="Controls\DialogManagement\Contracts\IDialogManager.cs" />
+    <Compile Include="Controls\DialogManagement\DialogBase.cs" />
+    <Compile Include="Controls\DialogManagement\DialogBaseControl.xaml.cs">
+      <DependentUpon>DialogBaseControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DialogManagement\DialogLayeringHelper.cs" />
+    <Compile Include="Controls\DialogManagement\DialogManager.cs" />
+    <Compile Include="Controls\DialogManagement\ImagingExtensions.cs" />
+    <Compile Include="Controls\Highlighter\AdvancedHighlightRule.cs" />
+    <Compile Include="Controls\Highlighter\DrawingControl.cs" />
+    <Compile Include="Controls\Highlighter\HighlighterManager.cs" />
+    <Compile Include="Controls\Highlighter\HighlightLineRule.cs" />
+    <Compile Include="Controls\Highlighter\HighlightWordsRule.cs" />
+    <Compile Include="Controls\Highlighter\IHighlighter.cs" />
+    <Compile Include="Controls\Highlighter\InnerTextBlock.cs" />
+    <Compile Include="Controls\Highlighter\RuleOptions.cs" />
+    <Compile Include="Controls\Highlighter\SyntaxHighlightTextBox.xaml.cs">
+      <DependentUpon>SyntaxHighlightTextBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Highlighter\TextUtilities.cs" />
+    <Compile Include="Controls\Highlighter\XmlHighlighter.cs" />
+    <Compile Include="Controls\ScrollableTabControl.cs" />
+    <Compile Include="Controls\VisualStates.cs" />
+    <Compile Include="Converters\BackgroundToForegroundConverter.cs" />
+    <Compile Include="Converters\FormatSizeConverter.cs" />
+    <Compile Include="JsonToolkit\JsonHelper.cs" />
+    <Compile Include="Converters\ObjectToJsonConverter.cs" />
+    <Compile Include="JsonToolkit\OrderedContractResolver.cs" />
+    <Compile Include="Converters\ThicknessToDoubleConverter.cs" />
+    <Compile Include="Logger\CallingMethod.cs" />
+    <Compile Include="Logger\LoggerPath.cs" />
+    <Compile Include="Logger\TypeComparer.cs" />
+    <Compile Include="Profiler\DbProfiler.cs" />
+    <Compile Include="Logger\CommandsTransmitter.cs" />
+    <Compile Include="Profiler\IDbProfiler.cs" />
+    <Compile Include="Profiler\DbContextBase.cs" />
+    <Compile Include="Profiler\DbCommandContext.cs" />
+    <Compile Include="Profiler\DbConnectionContext.cs" />
+    <Compile Include="Profiler\DbTransactionContext.cs" />
+    <Compile Include="Models\AppDomainMonitorSnapshot.cs" />
+    <Compile Include="Models\AppIdentity.cs" />
+    <Compile Include="Models\BaseInfo.cs" />
+    <Compile Include="Models\CallingMethodInfo.cs" />
+    <Compile Include="Models\CallingMethodStackTrace.cs" />
+    <Compile Include="Models\Command.cs" />
+    <Compile Include="Models\CommandConnection.cs" />
+    <Compile Include="Models\CommandConnectionType.cs" />
+    <Compile Include="Models\CommandParameter.cs" />
+    <Compile Include="Models\CommandResult.cs" />
+    <Compile Include="Models\CommandStatistics.cs" />
+    <Compile Include="Models\CommandTransaction.cs" />
+    <Compile Include="Models\CommandTransactionType.cs" />
+    <Compile Include="Models\Context.cs" />
+    <Compile Include="Models\ContextStatistics.cs" />
+    <Compile Include="Models\HttpInfo.cs" />
+    <Compile Include="Models\InfoType.cs" />
+    <Compile Include="Models\ProfilerData.cs" />
+    <Compile Include="Models\StatisticsBase.cs" />
+    <Compile Include="Models\TrafficUrl.cs" />
+    <Compile Include="Models\TrafficWebRequest.cs" />
+    <Compile Include="Mvvm\AppMessenger.cs" />
+    <Compile Include="Mvvm\BaseViewModel.cs" />
+    <Compile Include="Mvvm\CommandAction.cs" />
+    <Compile Include="Mvvm\CommonDialogsService.cs" />
+    <Compile Include="Mvvm\DelegateCommand.cs" />
+    <Compile Include="Mvvm\Designer.cs" />
+    <Compile Include="Mvvm\Messenger.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Threading\GuidUniqueIdExtensions.cs" />
+    <Compile Include="Threading\IdGenerator.cs" />
+    <Compile Include="Toolkit\ConfigSetGet.cs" />
+    <Compile Include="Threading\DispatcherHelper.cs" />
+    <Compile Include="Logger\ExceptionLogger.cs" />
+    <Compile Include="Toolkit\DirectoryMonitor.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Toolkit\EnableMultiCoreJIT.cs" />
+    <Compile Include="Toolkit\Guard.cs" />
+    <Compile Include="Toolkit\Hash.cs" />
+    <Compile Include="Logger\IExceptionLogger.cs" />
+    <Compile Include="Threading\IInfoQueue.cs" />
+    <Compile Include="Threading\InfoQueue.cs" />
+    <Compile Include="Toolkit\LinqExt.cs" />
+    <Compile Include="Toolkit\TimedRunner.cs" />
+    <Compile Include="Toolkit\XxHashUnsafe.cs" />
+    <Compile Include="WebToolkit\HttpContextUtils.cs" />
+    <Compile Include="Toolkit\Memory.cs" />
+    <Compile Include="ClipboardUtils\SafeClipboard.cs" />
+    <Compile Include="Threading\UniqueIdExtensions.cs" />
+    <Compile Include="WebToolkit\ISimpleHttp.cs" />
+    <Compile Include="WebToolkit\NetworkStatus.cs" />
+    <Compile Include="WebToolkit\SimpleHttp.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="key.snk" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\Highlighter\CS.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\Highlighter\SQL.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Controls\DialogManagement\DialogBaseControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Highlighter\SyntaxHighlightTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

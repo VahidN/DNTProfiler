@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="fa" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+</head>
+    <body>
+        <p>
+            @Html.ActionLink("Create New Product", "Create", "Home") |
+            @Html.ActionLink("Create New Category", "CreateCategory", "Home") |
+            @Html.ActionLink("Query From View", controllerName: "QueryFromView", actionName: "Index")
+        </p>
+        <div>
+            @RenderBody()
+        </div>
+        <script src="~/Scripts/jquery-2.1.3.min.js"></script>
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+        <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+        @RenderSection("Scripts", required: false)
+    </body>
+</html>

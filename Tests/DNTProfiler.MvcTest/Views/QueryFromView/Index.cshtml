@@ -1,0 +1,18 @@
+﻿@using DNTProfiler.MvcTest.IoCConfig
+@using DNTProfiler.ServiceLayer
+
+@{
+    ViewBag.Title = "Index";
+
+    var categoryService = ObjectFactory.Container.GetInstance<ICategoryService>();
+    var list = categoryService.GetAllCategories();
+}
+
+<h2>Query from view</h2>
+
+<ul>
+    @foreach (var item in list)
+    {
+        <li>@item.Name</li>
+    }
+</ul>

@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Syntax name="SQL">
+  <HighlightWordsRule name="ThisOrBaseReference">
+    <Words>
+      this
+      base
+    </Words>
+    <IgnoreCase>true</IgnoreCase>
+    <Foreground>Blue</Foreground>
+    <FontWeight>Bold</FontWeight>
+    <FontStyle>Normal</FontStyle>
+  </HighlightWordsRule>
+
+  <HighlightWordsRule name="TypeKeywords">
+    <Words>
+      as
+      is
+      new
+      sizeof
+      typeof
+      stackalloc
+    </Words>
+    <IgnoreCase>true</IgnoreCase>
+    <Foreground>DarkCyan</Foreground>
+    <FontWeight>Bold</FontWeight>
+    <FontStyle>Normal</FontStyle>
+  </HighlightWordsRule>
+
+  <HighlightWordsRule name="TrueFalse">
+    <Words>
+      true
+      false
+    </Words>
+    <IgnoreCase>true</IgnoreCase>
+    <Foreground>DarkCyan</Foreground>
+    <FontWeight>Bold</FontWeight>
+    <FontStyle>Normal</FontStyle>
+  </HighlightWordsRule>
+
+  <HighlightWordsRule name="Keywords">
+    <Words>
+      else
+      if
+      switch
+      case
+      default
+      do
+      for
+      foreach
+      in
+      while
+      lock
+    </Words>
+    <IgnoreCase>true</IgnoreCase>
+    <Foreground>Blue</Foreground>
+    <FontWeight>Bold</FontWeight>
+    <FontStyle>Normal</FontStyle>
+  </HighlightWordsRule>
+
+  <HighlightWordsRule name="GotoKeywords">
+    <Words>
+      break
+      continue
+      goto
+      return
+    </Words>
+    <IgnoreCase>true</IgnoreCase>
+    <Foreground>Navy</Foreground>
+    <FontWeight>Normal</FontWeight>
+    <FontStyle>Normal</FontStyle>
+  </HighlightWordsRule>
+
+  <HighlightWordsRule name="ContextKeywords">
+    <Words>
+      yield
+      partial
+      global
+      where
+      select
+      group
+      by
+      into
+      from
+      ascending
+      descending
+      orderby
+      let
+      join
+      on
+      equals
+      var
+      dynamic
+      await
+    </Words>
+    <IgnoreCase>true</IgnoreCase>
+    <Foreground>Navy</Foreground>
+    <FontWeight>Normal</FontWeight>
+    <FontStyle>Normal</FontStyle>
+  </HighlightWordsRule>
+
+  <HighlightWordsRule name="ExceptionKeywords">
+    <Words>
+      try
+      throw
+      catch
+      finally
+    </Words>
+    <IgnoreCase>true</IgnoreCase>
+    <Foreground>Teal</Foreground>
+    <FontWeight>Bold</FontWeight>
+    <FontStyle>Normal</FontStyle>
+  </HighlightWordsRule>
+
+  <HighlightWordsRule name="CheckedKeyword">
+    <Words>
+      checked
+      unchecked
+    </Words>
+    <IgnoreCase>true</IgnoreCase>
+    <Foreground>DarkGray</Foreground>
+    <FontWeight>Bold</FontWeight>
+    <FontStyle>Normal</FontStyle>
+  </HighlightWordsRule>
+
+  <HighlightWordsRule name="UnsafeKeywords">
+    <Words>
+      fixed
+      unsafe
+    </Words>
+    <IgnoreCase>true</IgnoreCase>
+    <Foreground>Olive</Foreground>
+    <FontWeight>Normal</FontWeight>
+    <FontStyle>Normal</FontStyle>
+  </HighlightWordsRule>
+
+  <HighlightWordsRule name="ValueTypeKeywords">
+    <Words>
+      bool
+      byte
+      char
+      decimal
+      double
+      enum
+      float
+      int
+      long
+      sbyte
+      short
+      struct
+      uint
+      ushort
+      ulong
+    </Words>
+    <IgnoreCase>true</IgnoreCase>
+    <Foreground>Red</Foreground>
+    <FontWeight>Bold</FontWeight>
+    <FontStyle>Normal</FontStyle>
+  </HighlightWordsRule>
+
+  <HighlightWordsRule name="ReferenceTypeKeywords">
+    <Words>
+      class
+      interface
+      delegate
+      object
+      string
+      void
+    </Words>
+    <IgnoreCase>true</IgnoreCase>
+    <Foreground>Red</Foreground>
+    <FontWeight>Normal</FontWeight>
+    <FontStyle>Normal</FontStyle>
+  </HighlightWordsRule>
+
+  <HighlightWordsRule name="OperatorKeywords">
+    <Words>
+      explicit
+      implicit
+      operator
+    </Words>
+    <IgnoreCase>true</IgnoreCase>
+    <Foreground>Pink</Foreground>
+    <FontWeight>Bold</FontWeight>
+    <FontStyle>Normal</FontStyle>
+  </HighlightWordsRule>
+
+  <HighlightWordsRule name="ParameterModifiers">
+    <Words>
+      params
+      ref
+      out
+    </Words>
+    <IgnoreCase>true</IgnoreCase>
+    <Foreground>DeepPink</Foreground>
+    <FontWeight>Bold</FontWeight>
+    <FontStyle>Normal</FontStyle>
+  </HighlightWordsRule>
+
+  <HighlightWordsRule name="Modifiers">
+    <Words>
+      abstract
+      const
+      event
+      extern
+      override
+      readonly
+      sealed
+      static
+      virtual
+      volatile
+      async
+    </Words>
+    <IgnoreCase>true</IgnoreCase>
+    <Foreground>Brown</Foreground>
+    <FontWeight>Normal</FontWeight>
+    <FontStyle>Normal</FontStyle>
+  </HighlightWordsRule>
+
+  <HighlightWordsRule name="Visibility">
+    <Words>
+      public
+      protected
+      private
+      internal
+    </Words>
+    <IgnoreCase>true</IgnoreCase>
+    <Foreground>Blue</Foreground>
+    <FontWeight>Bold</FontWeight>
+    <FontStyle>Normal</FontStyle>
+  </HighlightWordsRule>
+
+  <HighlightWordsRule name="NamespaceKeywords">
+    <Words>
+      namespace
+      using
+    </Words>
+    <IgnoreCase>true</IgnoreCase>
+    <Foreground>Green</Foreground>
+    <FontWeight>Bold</FontWeight>
+    <FontStyle>Normal</FontStyle>
+  </HighlightWordsRule>
+
+  <HighlightWordsRule name="GetSetAddRemove">
+    <Words>
+      get
+      set
+      add
+      remove
+    </Words>
+    <IgnoreCase>true</IgnoreCase>
+    <Foreground>SaddleBrown</Foreground>
+    <FontWeight>Normal</FontWeight>
+    <FontStyle>Normal</FontStyle>
+  </HighlightWordsRule>
+
+  <HighlightWordsRule name="NullOrValueKeywords">
+    <Words>
+      null
+      value
+    </Words>
+    <IgnoreCase>true</IgnoreCase>
+    <Foreground>Blue</Foreground>
+    <FontWeight>Bold</FontWeight>
+    <FontStyle>Normal</FontStyle>
+  </HighlightWordsRule>
+
+  <AdvancedHighlightRule name="Numbers">
+    <Expression>\b([0-9]+)\b</Expression>
+    <IgnoreCase>false</IgnoreCase>
+    <Foreground>#F68A1B</Foreground>
+    <FontWeight>Normal</FontWeight>
+    <FontStyle>Normal</FontStyle>
+  </AdvancedHighlightRule>
+</Syntax>

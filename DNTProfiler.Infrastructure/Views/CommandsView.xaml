@@ -1,0 +1,278 @@
+﻿<UserControl x:Class="DNTProfiler.Infrastructure.Views.CommandsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:behaviors="clr-namespace:DNTProfiler.Common.Behaviors;assembly=DNTProfiler.Common"
+             xmlns:highlighter="clr-namespace:DNTProfiler.Common.Controls.Highlighter;assembly=DNTProfiler.Common"
+             xmlns:converters="clr-namespace:DNTProfiler.Common.Converters;assembly=DNTProfiler.Common"
+             xmlns:views1="clr-namespace:DNTProfiler.Infrastructure.Views"
+             mc:Ignorable="d"
+             d:DesignHeight="1300" d:DesignWidth="2000">
+    <UserControl.Resources>
+        <converters:ObjectToJsonConverter x:Key="ParametersToJsonConverter" />
+        <converters:FormatSizeConverter x:Key="FormatSizeConverter"/>
+    </UserControl.Resources>
+    <Grid x:Name="ThisGrid">
+        <ListView ItemsSource="{Binding GuiModelData.RelatedCommands}"
+                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                  SelectedItem="{Binding GuiModelData.SelectedExecutedCommand}" MinHeight="100"
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  ScrollViewer.CanContentScroll="True"
+                  VirtualizingStackPanel.IsVirtualizing="True"
+                  VirtualizingStackPanel.VirtualizationMode="Recycling"
+                  behaviors:GridViewSortBehavior.AutoSort="True"
+                  behaviors:GridViewSortBehavior.ResetSort="{Binding GuiModelData.ResetSort}"
+                  Margin="3">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel
+                        IsVirtualizing="True"
+                        VirtualizationMode="Recycling" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="30">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Width="20" Height="20"
+                                        Command="{Binding DataContext.DoOpenPopupToolTip, ElementName=ThisGrid}"
+                                        CommandParameter="{Binding Converter={StaticResource ParametersToJsonConverter}}">
+                                    <Image Source="Images/json.png" Width="16" Height="16" />
+                                </Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="90" Header="Command Id" behaviors:GridViewSortBehavior.PropertyName="CommandId">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CommandId, Mode=OneTime}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="450" Header="SQL" behaviors:GridViewSortBehavior.PropertyName="Sql">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid VerticalAlignment="Stretch">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Width="30" Height="30"
+                                            Grid.Column="0"
+                                            VerticalAlignment="Center"
+                                            Command="{Binding DataContext.DoOpenCommandToolTip, ElementName=ThisGrid}"
+                                            CommandParameter="{Binding}">
+                                        <Rectangle Width="10" Height="10">
+                                            <Rectangle.Fill>
+                                                <VisualBrush Stretch="Fill"	Visual="{StaticResource appbar_information}" />
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                    </Button>
+                                    <highlighter:SyntaxHighlightTextBox
+                                        Grid.Column="1"
+                                        Text="{Binding Sql, Mode=OneTime}"
+                                        Margin="1"
+                                        IsReadOnly="True"
+                                        Highlighter="sql"
+                                        Height="150"
+                                        IsLineNumbersMarginVisible="True"
+                                        FontFamily="Consolas"
+                                        VerticalContentAlignment="Stretch"
+                                        HorizontalContentAlignment="Stretch"
+                                        FontSize="10pt"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="300" Header="Parameters" behaviors:GridViewSortBehavior.PropertyName="Parameters">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid VerticalAlignment="Stretch">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Width="30" Height="30"
+                                            Grid.Column="0"
+                                            VerticalAlignment="Center"
+                                            Command="{Binding DataContext.DoOpenPopupToolTip, ElementName=ThisGrid}"
+                                            CommandParameter="{Binding Parameters, Converter={StaticResource ParametersToJsonConverter}}">
+                                        <Rectangle Width="10" Height="10">
+                                            <Rectangle.Fill>
+                                                <VisualBrush Stretch="Fill"	Visual="{StaticResource appbar_information}" />
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                    </Button>
+                                    <TextBox
+                                        Grid.Column="1"
+                                        Margin="1"
+                                        VerticalContentAlignment="Stretch"
+                                        HorizontalContentAlignment="Stretch"
+                                        IsReadOnly="True"
+                                        Height="150"
+                                        VerticalScrollBarVisibility="Auto"
+                                        HorizontalScrollBarVisibility="Auto"
+                                        Text="{Binding Parameters, Mode=OneTime, Converter={StaticResource ParametersToJsonConverter}}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="90" Header="Connection Id" behaviors:GridViewSortBehavior.PropertyName="ConnectionId">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding ConnectionId, Mode=OneTime}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="90" Header="Transaction Id" behaviors:GridViewSortBehavior.PropertyName="TransactionId">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding TransactionId, Mode=OneTime}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="90" Header="Isolation Level" behaviors:GridViewSortBehavior.PropertyName="IsolationLevel">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding IsolationLevel, Mode=OneTime}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="150" Header="Executed At" behaviors:GridViewSortBehavior.PropertyName="AtDateTime">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding AtDateTime, Mode=OneTime, StringFormat={}{0:MM/dd/yyyy hh:mm:ss.fff}}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="100" Header="Rows Returned" behaviors:GridViewSortBehavior.PropertyName="RowsReturned">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding RowsReturned}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="50" Header="Fields" behaviors:GridViewSortBehavior.PropertyName="FieldsCount">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding FieldsCount}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="90" Header="Elapsed (ms)" behaviors:GridViewSortBehavior.PropertyName="ElapsedMilliseconds">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding ElapsedMilliseconds}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="90" Header="Processor Time" behaviors:GridViewSortBehavior.PropertyName="CommandCpuUsage">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CommandCpuUsage, Mode=OneTime}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="90" Header="Memory Usage" behaviors:GridViewSortBehavior.PropertyName="CommandMemoryUsage">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CommandMemoryUsage, Mode=OneTime, Converter={StaticResource FormatSizeConverter}}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="90" Header="Thread Id" behaviors:GridViewSortBehavior.PropertyName="ManagedThreadId">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding ManagedThreadId, Mode=OneTime}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="90" Header="Selects" behaviors:GridViewSortBehavior.PropertyName="CommandStatistics.SelectsCount">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CommandStatistics.SelectsCount, Mode=OneTime}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="90" Header="Inserts" behaviors:GridViewSortBehavior.PropertyName="CommandStatistics.InsertsCount">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CommandStatistics.InsertsCount, Mode=OneTime}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="90" Header="Updates" behaviors:GridViewSortBehavior.PropertyName="CommandStatistics.UpdatesCount">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CommandStatistics.UpdatesCount, Mode=OneTime}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="90" Header="Deletes" behaviors:GridViewSortBehavior.PropertyName="CommandStatistics.DeletesCount">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CommandStatistics.DeletesCount, Mode=OneTime}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="90" Header="Likes (Full table scan)" behaviors:GridViewSortBehavior.PropertyName="CommandStatistics.LikesCount">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CommandStatistics.LikesCount, Mode=OneTime}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="90" Header="Joins" behaviors:GridViewSortBehavior.PropertyName="CommandStatistics.JoinsCount">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CommandStatistics.JoinsCount, Mode=OneTime}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="80" Header="Async" behaviors:GridViewSortBehavior.PropertyName="IsAsync">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding IsAsync, Mode=OneTime}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="80" Header="Canceled" behaviors:GridViewSortBehavior.PropertyName="IsCanceled">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding IsCanceled}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="300" Header="Exception" behaviors:GridViewSortBehavior.PropertyName="Exception">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding ResultException}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Command="{Binding DoCopySelectedLine}"
+                              CommandParameter="{Binding GuiModelData.SelectedExecutedCommand}"
+                              Header="Copy selected line to clipboard">
+                        <MenuItem.Icon>
+                            <Image Stretch="UniformToFill" Width="16" Height="16"  Source="Images/CopyHS.png" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Command="{Binding DoCopyAllLines}"
+                              CommandParameter="{Binding GuiModelData.RelatedCommands}"
+                              Header="Copy all lines to clipboard">
+                        <MenuItem.Icon>
+                            <Image Stretch="UniformToFill" Width="16" Height="16" Source="Images/copy.png" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </ListView.ContextMenu>
+        </ListView>
+    </Grid>
+</UserControl>
