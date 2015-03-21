@@ -56,15 +56,6 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.IO">
-      <HintPath>..\..\packages\Microsoft.Bcl.1.1.9\lib\net40\System.IO.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime">
-      <HintPath>..\..\packages\Microsoft.Bcl.1.1.9\lib\net40\System.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Threading.Tasks">
-      <HintPath>..\..\packages\Microsoft.Bcl.1.1.9\lib\net40\System.Threading.Tasks.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -97,6 +88,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\DNTProfiler.Common\DNTProfiler.Common.csproj">
+      <Project>{8915b3a9-f138-4394-bd73-87ae07d20399}</Project>
+      <Name>DNTProfiler.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\DNTProfiler.Core\DNTProfiler.EntityFramework.Core.csproj">
       <Project>{484dc2d3-21e9-4c77-bca2-c3805906eac8}</Project>
       <Name>DNTProfiler.EntityFramework.Core</Name>
