@@ -24,6 +24,7 @@ namespace DNTProfiler.Dumper.ViewModels
         private readonly string _settingsPath = Path.Combine(AppMessenger.ExecutablePathDir, "Plugins", "DNTProfiler.Dumper.json");
         private DirectoryMonitor _directoryMonitor;
         private JsonLogger _jsonLogger;
+
         public MainViewModel(ProfilerPluginBase pluginContext)
             : base(pluginContext)
         {
@@ -47,6 +48,12 @@ namespace DNTProfiler.Dumper.ViewModels
         public DelegateCommand<FileInfo> DoReplayJsonFile { set; get; }
 
         public MainGuiModel ThisGuiModelData { set; get; }
+
+        private void createDumperDirectory()
+        {
+            if (!Directory.Exists(ThisGuiModelData.DumperSettings.DumperDirectory))
+                Directory.CreateDirectory(ThisGuiModelData.DumperSettings.DumperDirectory);
+        }
 
         private void disposeLogger()
         {
@@ -200,6 +207,8 @@ namespace DNTProfiler.Dumper.ViewModels
             if (_directoryMonitor != null)
                 _directoryMonitor.Dispose();
 
+            createDumperDirectory();
+
             _directoryMonitor = new DirectoryMonitor(ThisGuiModelData.DumperSettings.DumperDirectory, "*.json")
             {
                 OnFileSystemChanged = file =>
@@ -219,9 +228,7 @@ namespace DNTProfiler.Dumper.ViewModels
 
         private void showFilesList()
         {
-            if (!Directory.Exists(ThisGuiModelData.DumperSettings.DumperDirectory))
-                Directory.CreateDirectory(ThisGuiModelData.DumperSettings.DumperDirectory);
-
+            createDumperDirectory();
             var files = new DirectoryInfo(ThisGuiModelData.DumperSettings.DumperDirectory).GetFiles("*.json").OrderByDescending(x => x.LastWriteTime);
             ThisGuiModelData.Files = new ObservableCollection<FileInfo>(files);
 
