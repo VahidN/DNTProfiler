@@ -24,14 +24,14 @@ namespace DNTProfiler.ApplicationAnnouncements.Core
 
         public void GetReleaseInfo(string url)
         {
-            if (!NetworkStatus.IsConnectedToInternet())
-                return;
-
             _context.NotifyPluginsHost(NotificationType.ShowBusyIndicator, 1);
 
             var taskScheduler = TaskScheduler.FromCurrentSynchronizationContext();
             Task.Factory.StartNew(() =>
             {
+                if (!NetworkStatus.IsConnectedToInternet())
+                    return null;
+
                 using (var webClient = new WebClient())
                 {
                     webClient.Headers.Add("user-agent", "DNTProfiler");

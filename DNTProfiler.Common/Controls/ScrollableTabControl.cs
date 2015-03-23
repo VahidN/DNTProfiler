@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
+using DNTProfiler.Common.Toolkit;
 
 namespace DNTProfiler.Common.Controls
 {
@@ -26,7 +27,8 @@ namespace DNTProfiler.Common.Controls
             var si = ItemContainerGenerator.ContainerFromItem(model) as TabItem;
             if (si == null || _tabScrollViewer == null)
                 return;
-            if (si.ActualWidth == 0 && !si.IsLoaded)
+
+            if (si.ActualWidth.ApproxEquals(0) && !si.IsLoaded)
             {
                 si.Loaded += (s, e) => scrollToSelectedItem();
                 return;
