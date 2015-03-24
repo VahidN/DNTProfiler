@@ -24,10 +24,13 @@
                   behaviors:GridViewSortBehavior.AutoSort="True"
                   behaviors:AutoSizeListViewColumns.Enable="True"
                   behaviors:GridViewSortBehavior.ResetSort="{Binding GuiModelData.ResetSort}"
+                  behaviors:PixelBasedScrollingBehavior.IsEnabled="True"
                   Margin="3">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <VirtualizingStackPanel IsVirtualizing="True" VirtualizationMode="Recycling" />
+                    <VirtualizingStackPanel
+                        IsVirtualizing="True"
+                        VirtualizationMode="Recycling" />
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
             <ListView.View>

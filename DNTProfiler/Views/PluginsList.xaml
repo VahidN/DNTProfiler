@@ -90,7 +90,7 @@
 
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Width="190" behaviors:GridViewSortBehavior.PropertyName="ProfilerPlugin.PluginMetadata.PluginName">
+                                <GridViewColumn Width="190" behaviors:GridViewSortBehavior.PropertyName="Header">
                                     <GridViewColumn.Header>
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="/Themes/Images/Assembly.png" Margin="2" />
@@ -105,7 +105,7 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Width="40" behaviors:GridViewSortBehavior.PropertyName="ProfilerPlugin.PluginMetadata.NotificationsCount">
+                                <GridViewColumn Width="40" behaviors:GridViewSortBehavior.PropertyName="NotificationsCount">
                                     <GridViewColumn.Header>
                                         <Image Source="/Themes/Images/bell.png" Height="16" Width="16" Margin="2"
                                                ToolTip="Notifications Count"

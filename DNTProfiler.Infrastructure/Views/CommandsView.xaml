@@ -6,7 +6,6 @@
              xmlns:behaviors="clr-namespace:DNTProfiler.Common.Behaviors;assembly=DNTProfiler.Common"
              xmlns:highlighter="clr-namespace:DNTProfiler.Common.Controls.Highlighter;assembly=DNTProfiler.Common"
              xmlns:converters="clr-namespace:DNTProfiler.Common.Converters;assembly=DNTProfiler.Common"
-             xmlns:views1="clr-namespace:DNTProfiler.Infrastructure.Views"
              mc:Ignorable="d"
              d:DesignHeight="1300" d:DesignWidth="2000">
     <UserControl.Resources>
@@ -24,6 +23,7 @@
                   VirtualizingStackPanel.VirtualizationMode="Recycling"
                   behaviors:GridViewSortBehavior.AutoSort="True"
                   behaviors:GridViewSortBehavior.ResetSort="{Binding GuiModelData.ResetSort}"
+                  behaviors:PixelBasedScrollingBehavior.IsEnabled="True"
                   Margin="3">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>

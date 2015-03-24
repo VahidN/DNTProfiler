@@ -16,11 +16,12 @@
                       ScrollViewer.VerticalScrollBarVisibility="Auto"
                       VirtualizingStackPanel.IsVirtualizing="True"
                       VirtualizingStackPanel.VirtualizationMode="Recycling"
+                      behaviors:PixelBasedScrollingBehavior.IsEnabled="True"
                       Margin="3">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <VirtualizingStackPanel 
-                        IsVirtualizing="True" 
+                    <VirtualizingStackPanel
+                        IsVirtualizing="True"
                         VirtualizationMode="Recycling" />
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>

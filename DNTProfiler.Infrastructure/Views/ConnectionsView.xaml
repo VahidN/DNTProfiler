@@ -11,7 +11,7 @@
         <converters:ObjectToJsonConverter x:Key="ParametersToJsonConverter" />
     </UserControl.Resources>
     <Grid x:Name="ThisGrid">
-        <ListView ItemsSource="{Binding GuiModelData.RelatedConnections}" 
+        <ListView ItemsSource="{Binding GuiModelData.RelatedConnections}"
                       HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                       SelectedItem="{Binding GuiModelData.SelectedConnection}" MinHeight="100"
                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
@@ -21,11 +21,12 @@
                       VirtualizingStackPanel.VirtualizationMode="Recycling"
                       behaviors:GridViewSortBehavior.AutoSort="True"
                       behaviors:GridViewSortBehavior.ResetSort="{Binding GuiModelData.ResetSort}"
+                      behaviors:PixelBasedScrollingBehavior.IsEnabled="True"
                       Margin="3">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <VirtualizingStackPanel 
-                        IsVirtualizing="True" 
+                    <VirtualizingStackPanel
+                        IsVirtualizing="True"
                         VirtualizationMode="Recycling" />
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>

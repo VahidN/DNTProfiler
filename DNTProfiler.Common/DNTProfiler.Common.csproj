@@ -67,6 +67,7 @@
     <Compile Include="Behaviors\DelayedUpdateBehavior.cs" />
     <Compile Include="Behaviors\FolderBrowserDialogBehavior.cs" />
     <Compile Include="Behaviors\GridViewSortBehavior.cs" />
+    <Compile Include="Behaviors\PixelBasedScrollingBehavior.cs" />
     <Compile Include="Behaviors\ScrollCurrentItemIntoViewBehavior.cs" />
     <Compile Include="Behaviors\TextboxHelper.cs" />
     <Compile Include="Behaviors\WebBrowserBehavior.cs" />

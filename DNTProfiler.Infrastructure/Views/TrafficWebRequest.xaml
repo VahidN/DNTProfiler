@@ -22,6 +22,7 @@
                       VirtualizingStackPanel.VirtualizationMode="Recycling"
                       behaviors:GridViewSortBehavior.AutoSort="True"
                       behaviors:GridViewSortBehavior.ResetSort="{Binding GuiModelData.ResetSort}"
+                      behaviors:PixelBasedScrollingBehavior.IsEnabled="True"
                       Margin="3">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>

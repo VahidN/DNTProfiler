@@ -22,6 +22,7 @@
                   VirtualizingStackPanel.VirtualizationMode="Recycling"
                   behaviors:GridViewSortBehavior.AutoSort="True"
                   behaviors:AutoSizeListViewColumns.Enable="True"
+                  behaviors:PixelBasedScrollingBehavior.IsEnabled="True"
                   Margin="3">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
@@ -31,7 +32,9 @@
             </i:Interaction.Triggers>
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <VirtualizingStackPanel IsVirtualizing="True" VirtualizationMode="Recycling" />
+                    <VirtualizingStackPanel
+                        IsVirtualizing="True"
+                        VirtualizationMode="Recycling" />
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
             <ListView.View>
