@@ -5,12 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:behaviors="clr-namespace:DNTProfiler.Common.Behaviors;assembly=DNTProfiler.Common"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:converters="clr-namespace:DNTProfiler.Infrastructure.Converters"
              mc:Ignorable="d"
              d:DesignHeight="1300" d:DesignWidth="1300">
-    <UserControl.Resources>
-        <converters:CallingLineToMethodBodyConverter x:Key="CallingLineToMethodBodyConverter" />
-    </UserControl.Resources>
     <Grid>
         <ListView ItemsSource="{Binding CallingMethodInfoList}"
                   x:Name="LstStack"
@@ -76,7 +72,7 @@
                                     <Button Width="30" Height="30"
                                             VerticalAlignment="Center"
                                             Command="{Binding DataContext.DoOpenPopupToolTip, ElementName=ThisGrid}"
-                                            CommandParameter="{Binding Converter={StaticResource CallingLineToMethodBodyConverter}}">
+                                            CommandParameter="{Binding}">
                                         <Rectangle Width="10" Height="10">
                                             <Rectangle.Fill>
                                                 <VisualBrush Stretch="Fill"	Visual="{StaticResource appbar_information}" />

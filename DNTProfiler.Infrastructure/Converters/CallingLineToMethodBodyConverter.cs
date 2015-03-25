@@ -10,9 +10,6 @@ namespace DNTProfiler.Infrastructure.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null)
-                return string.Empty;
-
             var methodInfo = value as CallingMethodInfo;
             if (methodInfo == null)
                 return string.Empty;

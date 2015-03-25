@@ -4,26 +4,23 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:behaviors="clr-namespace:DNTProfiler.Common.Behaviors;assembly=DNTProfiler.Common"
-             xmlns:converters="clr-namespace:DNTProfiler.Common.Converters;assembly=DNTProfiler.Common"
              xmlns:views="clr-namespace:DNTProfiler.Infrastructure.Views"
              mc:Ignorable="d"
              d:DesignHeight="1300" d:DesignWidth="1300">
-    <UserControl.Resources>
-        <converters:ObjectToJsonConverter x:Key="ParametersToJsonConverter" />
-    </UserControl.Resources>
     <Grid x:Name="ThisGrid">
         <ListView ItemsSource="{Binding GuiModelData.RelatedTrafficWebRequests}" Name="ThisListView"
-                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                      SelectedItem="{Binding GuiModelData.SelectedTrafficWebRequest}" MinHeight="100"
-                      ScrollViewer.CanContentScroll="True"
-                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                      ScrollViewer.VerticalScrollBarVisibility="Auto"
-                      VirtualizingStackPanel.IsVirtualizing="True"
-                      VirtualizingStackPanel.VirtualizationMode="Recycling"
-                      behaviors:GridViewSortBehavior.AutoSort="True"
-                      behaviors:GridViewSortBehavior.ResetSort="{Binding GuiModelData.ResetSort}"
-                      behaviors:PixelBasedScrollingBehavior.IsEnabled="True"
-                      Margin="3">
+                  Height="{Binding Path=ActualHeight, RelativeSource={RelativeSource AncestorType=Grid}}"
+                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                  SelectedItem="{Binding GuiModelData.SelectedTrafficWebRequest}" MinHeight="100"
+                  ScrollViewer.CanContentScroll="True"
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  VirtualizingStackPanel.IsVirtualizing="True"
+                  VirtualizingStackPanel.VirtualizationMode="Recycling"
+                  behaviors:GridViewSortBehavior.AutoSort="True"
+                  behaviors:GridViewSortBehavior.ResetSort="{Binding GuiModelData.ResetSort}"
+                  behaviors:PixelBasedScrollingBehavior.IsEnabled="True"
+                  Margin="3">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VirtualizingStackPanel
@@ -38,7 +35,7 @@
                             <DataTemplate>
                                 <Button Width="20" Height="20"
                                         Command="{Binding DataContext.DoOpenPopupToolTip, ElementName=ThisGrid}"
-                                        CommandParameter="{Binding Converter={StaticResource ParametersToJsonConverter}}">
+                                        CommandParameter="{Binding}">
                                     <Image Source="Images/json.png" Width="16" Height="16" />
                                 </Button>
                             </DataTemplate>
@@ -63,15 +60,15 @@
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Command="{Binding DoCopySelectedLine}"
-                                  CommandParameter="{Binding GuiModelData.SelectedTrafficWebRequest}"
+                              CommandParameter="{Binding GuiModelData.SelectedTrafficWebRequest}"
                               Header="Copy selected line to clipboard">
                         <MenuItem.Icon>
                             <Image Stretch="UniformToFill" Width="16" Height="16"  Source="Images/CopyHS.png" HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Command="{Binding DoCopyAllLines}"
-                                  CommandParameter="{Binding GuiModelData.RelatedTrafficWebRequests}"
-                                  Header="Copy all lines to clipboard">
+                              CommandParameter="{Binding GuiModelData.RelatedTrafficWebRequests}"
+                              Header="Copy all lines to clipboard">
                         <MenuItem.Icon>
                             <Image Stretch="UniformToFill" Width="16" Height="16" Source="Images/copy.png" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </MenuItem.Icon>

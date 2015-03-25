@@ -4,13 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:behaviors="clr-namespace:DNTProfiler.Common.Behaviors;assembly=DNTProfiler.Common"
-             xmlns:converters="clr-namespace:DNTProfiler.Common.Converters;assembly=DNTProfiler.Common"
              xmlns:views1="clr-namespace:DNTProfiler.Infrastructure.Views"
              mc:Ignorable="d"
              d:DesignHeight="1300" d:DesignWidth="800">
-    <UserControl.Resources>
-        <converters:ObjectToJsonConverter x:Key="ParametersToJsonConverter" />
-    </UserControl.Resources>
     <Grid x:Name="ThisGrid">
         <ListView ItemsSource="{Binding GuiModelData.RelatedStackTraces}"
                   x:Name="LstStack"
@@ -40,7 +36,7 @@
                             <DataTemplate>
                                 <Button Width="20" Height="20"
                                         Command="{Binding DataContext.DoOpenPopupToolTip, ElementName=ThisGrid}"
-                                        CommandParameter="{Binding Converter={StaticResource ParametersToJsonConverter}}">
+                                        CommandParameter="{Binding}">
                                     <Image Source="Images/json.png" Width="16" Height="16" />
                                 </Button>
                             </DataTemplate>
@@ -163,15 +159,15 @@
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Command="{Binding DoCopySelectedLine}"
-                                  CommandParameter="{Binding GuiModelData.SelectedStackTrace}"
+                              CommandParameter="{Binding GuiModelData.SelectedStackTrace}"
                               Header="Copy selected line to clipboard">
                         <MenuItem.Icon>
                             <Image Stretch="UniformToFill" Width="16" Height="16"  Source="Images/CopyHS.png" HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Command="{Binding DoCopyAllLines}"
-                                  CommandParameter="{Binding GuiModelData.RelatedStackTraces}"
-                                  Header="Copy all lines to clipboard">
+                              CommandParameter="{Binding GuiModelData.RelatedStackTraces}"
+                              Header="Copy all lines to clipboard">
                         <MenuItem.Icon>
                             <Image Stretch="UniformToFill" Width="16" Height="16" Source="Images/copy.png" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </MenuItem.Icon>

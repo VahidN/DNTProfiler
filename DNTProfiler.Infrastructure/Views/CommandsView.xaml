@@ -9,11 +9,12 @@
              mc:Ignorable="d"
              d:DesignHeight="1300" d:DesignWidth="2000">
     <UserControl.Resources>
-        <converters:ObjectToJsonConverter x:Key="ParametersToJsonConverter" />
+        <converters:ObjectToJsonConverter x:Key="ParametersToJsonConverter"/>
         <converters:FormatSizeConverter x:Key="FormatSizeConverter"/>
     </UserControl.Resources>
     <Grid x:Name="ThisGrid">
         <ListView ItemsSource="{Binding GuiModelData.RelatedCommands}"
+                  Height="{Binding Path=ActualHeight, RelativeSource={RelativeSource AncestorType=Grid}}"
                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                   SelectedItem="{Binding GuiModelData.SelectedExecutedCommand}" MinHeight="100"
                   ScrollViewer.HorizontalScrollBarVisibility="Auto"
@@ -39,7 +40,7 @@
                             <DataTemplate>
                                 <Button Width="20" Height="20"
                                         Command="{Binding DataContext.DoOpenPopupToolTip, ElementName=ThisGrid}"
-                                        CommandParameter="{Binding Converter={StaticResource ParametersToJsonConverter}}">
+                                        CommandParameter="{Binding}">
                                     <Image Source="Images/json.png" Width="16" Height="16" />
                                 </Button>
                             </DataTemplate>
@@ -99,7 +100,7 @@
                                             Grid.Column="0"
                                             VerticalAlignment="Center"
                                             Command="{Binding DataContext.DoOpenPopupToolTip, ElementName=ThisGrid}"
-                                            CommandParameter="{Binding Parameters, Converter={StaticResource ParametersToJsonConverter}}">
+                                            CommandParameter="{Binding Parameters}">
                                         <Rectangle Width="10" Height="10">
                                             <Rectangle.Fill>
                                                 <VisualBrush Stretch="Fill"	Visual="{StaticResource appbar_information}" />

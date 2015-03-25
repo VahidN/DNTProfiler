@@ -8,16 +8,17 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <ListView ItemsSource="{Binding Contexts}"
-                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                      SelectedItem="{Binding DataContext.GuiModelData.SelectedContext, 
-                                    RelativeSource={RelativeSource AncestorType=Grid, AncestorLevel=3}}" MinHeight="100"
-                      ScrollViewer.CanContentScroll="True"
-                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                      ScrollViewer.VerticalScrollBarVisibility="Auto"
-                      VirtualizingStackPanel.IsVirtualizing="True"
-                      VirtualizingStackPanel.VirtualizationMode="Recycling"
-                      behaviors:PixelBasedScrollingBehavior.IsEnabled="True"
-                      Margin="3">
+                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                  Height="{Binding Path=ActualHeight, RelativeSource={RelativeSource AncestorType=Grid}}"
+                  SelectedItem="{Binding DataContext.GuiModelData.SelectedContext, 
+                  RelativeSource={RelativeSource AncestorType=Grid, AncestorLevel=3}}" MinHeight="100"
+                  ScrollViewer.CanContentScroll="True"
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  VirtualizingStackPanel.IsVirtualizing="True"
+                  VirtualizingStackPanel.VirtualizationMode="Recycling"
+                  behaviors:PixelBasedScrollingBehavior.IsEnabled="True"
+                  Margin="3">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VirtualizingStackPanel

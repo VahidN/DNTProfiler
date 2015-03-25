@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using DNTProfiler.Common.Models;
 using ICSharpCode.NRefactory.CSharp;
 
 namespace DNTProfiler.Infrastructure.StackTraces
@@ -37,6 +38,16 @@ namespace DNTProfiler.Infrastructure.StackTraces
             }
 
             return readLines(sourceFilePath, callingLine);
+        }
+
+        public static object TryGetMethodBody(this object data)
+        {
+            var methodInfo = data as CallingMethodInfo;
+            if (methodInfo == null) return data;
+            return GetMethodBody(
+                methodInfo.CallingFileFullName,
+                methodInfo.CallingMethod,
+                methodInfo.CallingLine);
         }
 
         private static string readLines(string sourceFilePath, int callingLine)

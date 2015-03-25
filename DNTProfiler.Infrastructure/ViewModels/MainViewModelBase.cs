@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using DNTProfiler.Common.ClipboardUtils;
 using DNTProfiler.Common.Controls.DialogManagement.Contracts;
+using DNTProfiler.Common.JsonToolkit;
 using DNTProfiler.Common.Models;
 using DNTProfiler.Common.Mvvm;
 using DNTProfiler.Infrastructure.Models;
@@ -27,7 +28,7 @@ namespace DNTProfiler.Infrastructure.ViewModels
             DoCopySelectedLine = new DelegateCommand<object>(CopySelectedLine, info => true);
             DoCopyAllLines = new DelegateCommand<object>(CopyAllLines, info => true);
             DoOpenPopupToolTip = new DelegateCommand<object>(OpenPopupToolTip, info => true);
-            DoOpenCommandToolTip = new DelegateCommand<Command>(OpenCommandToolTip, info=>true);
+            DoOpenCommandToolTip = new DelegateCommand<Command>(OpenCommandToolTip, info => true);
             PluginContext.ProfilerData.ApplicationIdentities.CollectionChanged += ApplicationIdentities_CollectionChanged;
         }
 
@@ -101,6 +102,12 @@ namespace DNTProfiler.Infrastructure.ViewModels
         {
             if (data == null)
                 return;
+
+            data = data.TryGetMethodBody();
+            if (!(data is string))
+            {
+                data = data.ToFormattedJson();
+            }
 
             var dlg = PluginContext.CustomDialogsService.CreateCustomContentDialog(
                             new PopupToolTip { Text = data.ToString() }, "Details", DialogMode.Ok);

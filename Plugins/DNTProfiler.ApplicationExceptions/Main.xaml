@@ -3,14 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:converters="clr-namespace:DNTProfiler.Common.Converters;assembly=DNTProfiler.Common"
              xmlns:behaviors="clr-namespace:DNTProfiler.Common.Behaviors;assembly=DNTProfiler.Common"
              xmlns:highlighter="clr-namespace:DNTProfiler.Common.Controls.Highlighter;assembly=DNTProfiler.Common"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <UserControl.Resources>
-        <converters:ObjectToJsonConverter x:Key="ParametersToJsonConverter" />
-    </UserControl.Resources>
     <Grid x:Name="ThisGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="300" />
@@ -43,7 +39,7 @@
                             <DataTemplate>
                                 <Button Width="20" Height="20"
                                         Command="{Binding DataContext.DoOpenPopupToolTip, ElementName=ThisGrid}"
-                                        CommandParameter="{Binding Converter={StaticResource ParametersToJsonConverter}}">
+                                        CommandParameter="{Binding}">
                                     <Image Source="Images/json.png" Width="16" Height="16" />
                                 </Button>
                             </DataTemplate>
