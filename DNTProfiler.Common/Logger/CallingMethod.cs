@@ -107,7 +107,12 @@ namespace DNTProfiler.Common.Logger
                 results.CallingMethodInfoList.Add(methodInfo);
             }
 
-            results.StackTraceHash = info.ToString().ComputeHash();
+            var stackTraceString = info.ToString().Trim();
+            if (string.IsNullOrWhiteSpace(stackTraceString))
+            {
+                stackTraceString = "no-info";
+            }
+            results.StackTraceHash = stackTraceString.ComputeHash();
 
             return results;
         }
