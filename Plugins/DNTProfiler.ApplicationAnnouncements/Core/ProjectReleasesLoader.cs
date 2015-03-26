@@ -75,7 +75,6 @@ namespace DNTProfiler.ApplicationAnnouncements.Core
                 if (releaseInfo == null || !releaseInfo.Any())
                     return;
 
-                _context.NotifyPluginsHost(NotificationType.ResetAll, 0);
                 _mainGuiModel.ReleaseInfo = releaseInfo;
                 _context.NotifyPluginsHost(NotificationType.Reset, releaseInfo.Count);
             }, taskScheduler);
