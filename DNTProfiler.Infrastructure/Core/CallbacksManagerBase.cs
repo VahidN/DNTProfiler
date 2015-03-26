@@ -417,6 +417,29 @@ namespace DNTProfiler.Infrastructure.Core
             }
         }
 
+        public void ShowSelectedStackTraceRelatedDuplicateCommands()
+        {
+            if (GuiModelData.SelectedStackTrace == null || GuiModelData.SelectedApplicationIdentity == null)
+                return;
+
+            GuiModelData.RelatedCommands.Clear();
+
+            var relatedCommands = PluginContext.ProfilerData.Commands
+                .Where(
+                    x =>
+                        x.StackTrace.StackTraceHash.Equals(GuiModelData.SelectedStackTrace.StackTraceHash, StringComparison.OrdinalIgnoreCase) &&
+                        x.ApplicationIdentity.Equals(GuiModelData.SelectedApplicationIdentity))
+                .ToList();
+
+            foreach (var item in relatedCommands.Where(item => relatedCommands.Any(
+                            command => command.CommandId != item.CommandId &&
+                           (command.SqlHash.Equals(item.SqlHash, StringComparison.OrdinalIgnoreCase) ||
+                            command.NormalizedSqlHash.Equals(item.NormalizedSqlHash, StringComparison.OrdinalIgnoreCase)))))
+            {
+                GuiModelData.RelatedCommands.Add(item);
+            }
+        }
+
         public void ShowSelectedTransactionRelatedCommands()
         {
             var tx = GuiModelData.SelectedTransaction;
@@ -757,13 +780,25 @@ namespace DNTProfiler.Infrastructure.Core
                          x.ApplicationIdentity.Equals(item.ApplicationIdentity));
         }
 
-        protected bool HasDuplicateQueriesWithSameHash(Command item)
+        protected bool HasThisContextDuplicateQueriesWithSameHash(Command item)
         {
             return PluginContext.ProfilerData.Commands.Any(
                 command => command.ObjectContextId == item.ObjectContextId &&
                      command.ApplicationIdentity.Equals(item.ApplicationIdentity) &&
                      command.CommandId != item.CommandId &&
-                     command.SqlHash.Equals(item.SqlHash, StringComparison.OrdinalIgnoreCase));
+                     (command.SqlHash.Equals(item.SqlHash, StringComparison.OrdinalIgnoreCase) ||
+                     command.NormalizedSqlHash.Equals(item.NormalizedSqlHash, StringComparison.OrdinalIgnoreCase)));
+        }
+
+        protected bool HasThisMethodDuplicateQueriesWithSameHash(Command item)
+        {
+            return PluginContext.ProfilerData.Commands.Any(
+                command => command.ObjectContextId == item.ObjectContextId &&
+                    command.ApplicationIdentity.Equals(item.ApplicationIdentity) &&
+                     command.StackTrace.StackTraceHash.Equals(item.StackTrace.StackTraceHash, StringComparison.OrdinalIgnoreCase) &&
+                     command.CommandId != item.CommandId &&
+                     (command.SqlHash.Equals(item.SqlHash, StringComparison.OrdinalIgnoreCase) ||
+                     command.NormalizedSqlHash.Equals(item.NormalizedSqlHash, StringComparison.OrdinalIgnoreCase)));
         }
 
         protected void ShowSelectedConnectionRelatedCommands(CommandConnection connection)
@@ -840,7 +875,7 @@ namespace DNTProfiler.Infrastructure.Core
 
         protected void UpdateNumberOfDuplicateQueries(Context context, Command item)
         {
-            if (HasDuplicateQueriesWithSameHash(item))
+            if (HasThisContextDuplicateQueriesWithSameHash(item))
             {
                 context.ContextStatistics.NumberOfDuplicateQueries++;
             }

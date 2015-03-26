@@ -33,7 +33,7 @@ namespace DNTProfiler.DuplicateCommandsPerMethod.ViewModels
                     _callbacksManager.ShowSelectedApplicationIdentityStackTraces();
                     break;
                 case "SelectedStackTrace":
-                    _callbacksManager.ShowSelectedStackTraceRelatedCommands();
+                    _callbacksManager.ShowSelectedStackTraceRelatedDuplicateCommands();
                     break;
             }
         }

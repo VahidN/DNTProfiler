@@ -121,6 +121,7 @@ namespace DNTProfiler.Common.Models
         }
 
         public string SqlHash { set; get; }
+        public string NormalizedSqlHash { set; get; }
 
         public override bool Equals(object obj)
         {

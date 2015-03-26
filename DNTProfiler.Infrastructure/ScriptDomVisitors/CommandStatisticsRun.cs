@@ -18,6 +18,7 @@ namespace DNTProfiler.Infrastructure.ScriptDomVisitors
             try
             {
                 runAnalysis(command);
+                setNormalizedSqlHash(command);
             }
             catch (Exception ex)
             {
@@ -41,6 +42,12 @@ namespace DNTProfiler.Infrastructure.ScriptDomVisitors
                 command.CommandStatistics = counterVisitor.CommandStatistics;
                 _commandStatistics.Add(command.SqlHash, counterVisitor.CommandStatistics);
             }
+        }
+
+        private static void setNormalizedSqlHash(Command item)
+        {
+            var result = RunTSqlFragmentVisitor.GetNormalizedSqlHash(item.Sql, item.SqlHash);
+            item.NormalizedSqlHash = result.NormalizedSqlHash;
         }
     }
 }

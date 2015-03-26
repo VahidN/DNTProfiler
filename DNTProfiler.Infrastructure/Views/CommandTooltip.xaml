@@ -4,8 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:highlighter="clr-namespace:DNTProfiler.Common.Controls.Highlighter;assembly=DNTProfiler.Common"
+             xmlns:converters="clr-namespace:DNTProfiler.Common.Converters;assembly=DNTProfiler.Common"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <converters:ObjectToJsonConverter x:Key="ParametersToJsonConverter" />
+    </UserControl.Resources>
     <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" x:Name="LayoutRoot">
         <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch">
             <highlighter:SyntaxHighlightTextBox
@@ -18,7 +22,7 @@
                 HorizontalContentAlignment="Stretch"
                 FontSize="10pt"/>
             <highlighter:SyntaxHighlightTextBox
-                Text="{Binding Command.Parameters}"
+                Text="{Binding Command.Parameters, Converter={StaticResource ParametersToJsonConverter}}"
                 Margin="1"
                 Highlighter="sql"
                 IsReadOnly="True"

@@ -24,8 +24,6 @@ namespace DNTProfiler.ApplicationAnnouncements.Core
 
         public void GetReleaseInfo(string url)
         {
-            _context.NotifyPluginsHost(NotificationType.ShowBusyIndicator, 1);
-
             var taskScheduler = TaskScheduler.FromCurrentSynchronizationContext();
             Task.Factory.StartNew(() =>
             {
@@ -70,25 +68,16 @@ namespace DNTProfiler.ApplicationAnnouncements.Core
                             return true;
                         });
                     }
-
-                    _context.NotifyPluginsHost(NotificationType.HideBusyIndicator, 1);
                     return;
                 }
 
-                try
-                {
-                    var releaseInfo = task.Result;
-                    if (releaseInfo == null || !releaseInfo.Any())
-                        return;
+                var releaseInfo = task.Result;
+                if (releaseInfo == null || !releaseInfo.Any())
+                    return;
 
-                    _context.NotifyPluginsHost(NotificationType.ResetAll, 0);
-                    _mainGuiModel.ReleaseInfo = releaseInfo;
-                    _context.NotifyPluginsHost(NotificationType.Reset, releaseInfo.Count);
-                }
-                finally
-                {
-                    _context.NotifyPluginsHost(NotificationType.HideBusyIndicator, 1);
-                }
+                _context.NotifyPluginsHost(NotificationType.ResetAll, 0);
+                _mainGuiModel.ReleaseInfo = releaseInfo;
+                _context.NotifyPluginsHost(NotificationType.Reset, releaseInfo.Count);
             }, taskScheduler);
         }
     }

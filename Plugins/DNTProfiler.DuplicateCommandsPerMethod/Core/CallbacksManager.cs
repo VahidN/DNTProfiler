@@ -19,13 +19,13 @@ namespace DNTProfiler.DuplicateCommandsPerMethod.Core
 
         public void ManageStackTraces(Command item)
         {
-            if (!HasDuplicateQueriesWithSameHash(item))
+            if (!HasThisMethodDuplicateQueriesWithSameHash(item))
                 return;
 
             PluginContext.NotifyPluginsHost(NotificationType.Update, 1);
             UpdateAppIdentityNotificationsCount(item.ApplicationIdentity);
 
-            if (isDuplicateMethod(item))
+            if (shouldIgnoreAddingThisMethod(item))
                 return;
 
             var stackTrace = GetStackTrace(item);
@@ -55,7 +55,7 @@ namespace DNTProfiler.DuplicateCommandsPerMethod.Core
                     _localCallingMethodStackTraces.Where(x => x.ApplicationIdentity.Equals(GuiModelData.SelectedApplicationIdentity)));
         }
 
-        private bool isDuplicateMethod(BaseInfo item)
+        private bool shouldIgnoreAddingThisMethod(BaseInfo item)
         {
             return _localCallingMethodStackTraces.Any(
                 x => x.StackTraceHash.Equals(item.StackTrace.StackTraceHash, StringComparison.OrdinalIgnoreCase) &&

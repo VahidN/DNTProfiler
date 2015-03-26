@@ -139,6 +139,7 @@
     <Compile Include="ScriptDomVisitors\ScriptDomUtils.cs" />
     <Compile Include="ScriptDomVisitors\SqlFragmentProvider.cs" />
     <Compile Include="ScriptDomVisitors\SqlFragmentVisitorBase.cs" />
+    <Compile Include="ScriptDomVisitors\SqlNormalizerVisitor.cs" />
     <Compile Include="ScriptDomVisitors\UnboundedResultSetVisitor.cs" />
     <Compile Include="ScriptDomVisitors\UnparametrizedWhereClausesVisitor.cs" />
     <Compile Include="StackTraces\MethodDeclarations.cs" />
