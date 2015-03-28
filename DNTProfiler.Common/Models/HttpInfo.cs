@@ -10,9 +10,12 @@ namespace DNTProfiler.Common.Models
             Url = HttpContextUtils.GetCurrentUrl();
             UrlHash = getUrlHash();
             HttpContextCurrentId = HttpContextUtils.GetHttpContextCurrentId();
+            IsStaticFile = HttpContextUtils.IsStaticFile();
         }
 
         public int? HttpContextCurrentId { set; get; }
+
+        public bool IsStaticFile { set; get; }
 
         public string Url { set; get; }
 

@@ -230,7 +230,7 @@ namespace DNTProfiler.ViewModels
         private void setTheSelectedPlugin()
         {
             if (GuiModelData.Plugins != null)
-                GuiModelData.SelectedPlugin = GuiModelData.Plugins.FirstOrDefault(x => x.Header == "By Context");
+                GuiModelData.SelectedPlugin = GuiModelData.Plugins.FirstOrDefault(x => x.Header == "By Contexts");
         }
 
         private void setPluginAuthorInfo()

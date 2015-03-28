@@ -9,7 +9,6 @@
     <Grid>
         <ListView ItemsSource="{Binding Contexts}"
                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                  Height="{Binding Path=ActualHeight, RelativeSource={RelativeSource AncestorType=Grid}}"
                   SelectedItem="{Binding DataContext.GuiModelData.SelectedContext, 
                   RelativeSource={RelativeSource AncestorType=Grid, AncestorLevel=3}}" MinHeight="100"
                   ScrollViewer.CanContentScroll="True"

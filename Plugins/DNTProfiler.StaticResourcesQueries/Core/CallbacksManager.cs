@@ -1,11 +1,12 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using DNTProfiler.Common.Models;
 using DNTProfiler.Infrastructure.Core;
 using DNTProfiler.Infrastructure.Models;
 using DNTProfiler.PluginsBase;
 
-namespace DNTProfiler.ByUrl.Core
+namespace DNTProfiler.StaticResourcesQueries.Core
 {
     public class CallbacksManager : CallbacksManagerBase
     {

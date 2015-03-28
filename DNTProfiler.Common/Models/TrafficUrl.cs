@@ -6,6 +6,8 @@
 
         public AppIdentity ApplicationIdentity { set; get; }
 
+        public bool IsStaticFile { set; get; }
+
         public int NumberOfContexts
         {
             get { return _numberOfContexts; }
@@ -27,6 +29,7 @@
                 return false;
 
             return this.UrlHash == trafficUrl.UrlHash &&
+                   this.IsStaticFile == trafficUrl.IsStaticFile &&
                    this.ApplicationIdentity.Equals(trafficUrl.ApplicationIdentity);
         }
 
@@ -38,6 +41,7 @@
                 hash = hash * 23 + UrlHash.GetHashCode();
                 hash = hash * 23 + this.ApplicationIdentity.AppDomainId.GetHashCode();
                 hash = hash * 23 + this.ApplicationIdentity.ProcessId.GetHashCode();
+                hash = hash * 23 + this.IsStaticFile.GetHashCode();
                 return hash;
             }
         }

@@ -1,16 +1,16 @@
 ﻿using System.Windows.Controls;
 using DNTProfiler.PluginsBase;
 
-namespace DNTProfiler.EFTrafficLogger
+namespace DNTProfiler.StaticResourcesQueries
 {
-    public class EFTrafficLoggerPlugin : ProfilerPluginBase
+    public class StaticResourcesQueriesPlugin : ProfilerPluginBase
     {
-        public EFTrafficLoggerPlugin()
+        public StaticResourcesQueriesPlugin()
         {
             PluginMetadata = new PluginMetadata
             {
-                PluginName = "By Contexts",
-                PluginDescription = "By Contexts Plugin, sorts all of the EF interactions with the database by context."
+                PluginName = "Static Resources Queries",
+                PluginDescription = "Static Resources Queries Plugin, represents the issued queries from the static resources/files requests."
             };
 
             PluginAuthor = new PluginAuthor
@@ -20,7 +20,7 @@ namespace DNTProfiler.EFTrafficLogger
                 WebSiteUrl = "http://www.dotnettips.info"
             };
 
-            Category = PluginCategory.Loggers;
+            Category = PluginCategory.Alerts;
         }
 
         public override UserControl GetPluginUI()

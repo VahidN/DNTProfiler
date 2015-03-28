@@ -57,7 +57,8 @@ namespace DNTProfiler.Infrastructure.Core
                 {
                     Url = item.HttpInfo.Url,
                     UrlHash = item.HttpInfo.UrlHash,
-                    ApplicationIdentity = item.ApplicationIdentity
+                    ApplicationIdentity = item.ApplicationIdentity,
+                    IsStaticFile = item.HttpInfo.IsStaticFile
                 });
             }
         }
@@ -438,6 +439,29 @@ namespace DNTProfiler.Infrastructure.Core
             {
                 GuiModelData.RelatedCommands.Add(item);
             }
+        }
+
+        public void ShowSelectedTrafficUrlRelatedCommands()
+        {
+            if (GuiModelData.SelectedTrafficUrl == null || GuiModelData.SelectedApplicationIdentity == null)
+                return;
+
+            GuiModelData.RelatedStackTraces.Clear();
+            GuiModelData.RelatedCommands.Clear();
+
+            var commands = PluginContext.ProfilerData.Commands
+                            .Where(x =>
+                                x.HttpInfo.UrlHash.Equals(GuiModelData.SelectedTrafficUrl.UrlHash, StringComparison.OrdinalIgnoreCase) &&
+                                x.ApplicationIdentity.Equals(GuiModelData.SelectedApplicationIdentity))
+                            .OrderBy(x => x.AtDateTime)
+                            .ToList();
+
+            foreach (var item in commands)
+            {
+                GuiModelData.RelatedCommands.Add(item);
+            }
+
+            ActivateRelatedStackTraces();
         }
 
         public void ShowSelectedTransactionRelatedCommands()

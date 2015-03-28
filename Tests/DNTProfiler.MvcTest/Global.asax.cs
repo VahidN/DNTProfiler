@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Globalization;
 using System.Web.Mvc;
 using System.Web.Routing;
+using DNTProfiler.ServiceLayer.Contracts;
 using DNTProfiler.TestEFContext.DataLayer;
 using StructureMap;
 using StructureMap.Web.Pipeline;
@@ -37,6 +38,15 @@ namespace DNTProfiler.MvcTest
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
             initStructureMap();
+        }
+
+        protected void Application_AuthenticateRequest(Object sender, EventArgs e)
+        {
+            var list = ObjectFactory.Container.GetInstance<IProductService>().GetAllProducts();
+            if (list != null)
+            {
+                // to test AuthenticateRequest
+            }
         }
 
         private static void initStructureMap()
