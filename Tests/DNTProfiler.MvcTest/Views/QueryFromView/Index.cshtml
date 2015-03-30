@@ -1,5 +1,5 @@
 ﻿@using DNTProfiler.MvcTest.IoCConfig
-@using DNTProfiler.ServiceLayer
+@using DNTProfiler.ServiceLayer.Contracts
 
 @{
     ViewBag.Title = "Index";
@@ -16,3 +16,7 @@
         <li>@item.Name</li>
     }
 </ul>
+
+
+<h2>Render Action</h2>
+@{ Html.RenderAction("Index", "Home"); }

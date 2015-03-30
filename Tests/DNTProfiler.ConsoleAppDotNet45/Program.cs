@@ -13,21 +13,7 @@ namespace DNTProfiler.ConsoleAppDotNet45
 
             AsyncContext.Run(async () =>
             {
-                using (var ctx = new SampleContext())
-                {
-                    var list = await ctx.Products.ToListAsync();
-                    foreach (var product in list)
-                    {
-                        Console.WriteLine(product.Name);
-                    }
-
-
-                    var product1 = await ctx.Products.FirstOrDefaultAsync(product => product.Name.StartsWith("p"));
-                    if (product1 != null)
-                    {
-                        Console.WriteLine(product1.Name);
-                    }
-                }
+                await TestAsync.RunCommands();
             });
 
             Console.WriteLine("Press a key to terminate...");

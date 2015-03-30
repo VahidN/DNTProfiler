@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using DNTProfiler.Common.Models;
@@ -84,7 +85,6 @@ namespace DNTProfiler.Common.Logger
             get { return _typesToExclude; }
         }
 
-
         public CallingMethodStackTrace GetCallingMethodInfo(bool onlyIncludeInfoWithFileLine = false)
         {
             var results = new CallingMethodStackTrace();
@@ -117,6 +117,29 @@ namespace DNTProfiler.Common.Logger
             return results;
         }
 
+        private static MethodBase getRealMethodFromAsyncMethod(MethodBase methodBase)
+        {
+            var generatedType = methodBase.DeclaringType;
+            if (generatedType == null)
+                return methodBase;
+
+            var originalType = generatedType.DeclaringType;
+            if (originalType == null)
+                return methodBase;
+
+            foreach (var methodInfo in originalType.GetMethods())
+            {
+                if (methodInfo.GetCustomAttributes(false)
+                              .Any(attr => attr.GetType().FullName ==
+                                  "System.Runtime.CompilerServices.AsyncStateMachineAttribute"))
+                {
+                    return methodInfo;
+                }
+            }
+
+            return methodBase;
+        }
+
         private static bool isMicrosoftType(MethodBase method)
         {
             if (method.ReflectedType == null)
@@ -146,6 +169,8 @@ namespace DNTProfiler.Common.Logger
             var method = stackFrame.GetMethod();
             if (method == null)
                 return null;
+
+            method = getRealMethodFromAsyncMethod(method);
 
             var type = method.ReflectedType;
             if (type == null)
