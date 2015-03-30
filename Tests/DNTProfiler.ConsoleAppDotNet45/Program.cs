@@ -9,6 +9,8 @@ namespace DNTProfiler.ConsoleAppDotNet45
     {
         static void Main(string[] args)
         {
+            //DNTProfiler.Common.Logger.CallingMethod.WontExcludeTypes = true;
+
             startDb();
 
             AsyncContext.Run(async () =>

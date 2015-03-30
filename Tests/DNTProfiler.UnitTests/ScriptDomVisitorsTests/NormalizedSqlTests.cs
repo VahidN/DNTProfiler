@@ -27,5 +27,29 @@ namespace DNTProfiler.UnitTests.ScriptDomVisitorsTests
             var hash2 = RunTSqlFragmentVisitor.GetNormalizedSqlHash(sql2, sql2.ComputeHash());
             Assert.AreEqual(hash1.NormalizedSqlHash, hash2.NormalizedSqlHash);
         }
+
+        [TestMethod]
+        public void SameQueriesWithDifferentParameterNamesShouldHaveTheSameHash()
+        {
+            var sql1 = @"SELECT
+                            [Extent1].[Id] AS [Id],
+                            [Extent1].[UserId] AS [UserId],
+                            [Extent1].[ClaimType] AS [ClaimType],
+                            [Extent1].[ClaimValue] AS [ClaimValue]
+                            FROM [dbo].[UserClaims] AS [Extent1]
+                            WHERE [Extent1].[UserId] = @p__linq__0";
+
+            var sql2 = @"SELECT
+                            [Extent1].[Id] AS [Id],
+                            [Extent1].[UserId] AS [UserId],
+                            [Extent1].[ClaimType] AS [ClaimType],
+                            [Extent1].[ClaimValue] AS [ClaimValue]
+                            FROM [dbo].[UserClaims] AS [Extent1]
+                            WHERE [Extent1].[UserId] = @EntityKeyValue";
+
+            var hash1 = RunTSqlFragmentVisitor.GetNormalizedSqlHash(sql1, sql1.ComputeHash());
+            var hash2 = RunTSqlFragmentVisitor.GetNormalizedSqlHash(sql2, sql2.ComputeHash());
+            Assert.AreEqual(hash1.NormalizedSqlHash, hash2.NormalizedSqlHash);
+        }
     }
 }

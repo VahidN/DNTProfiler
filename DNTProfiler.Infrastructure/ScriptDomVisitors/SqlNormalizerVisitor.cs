@@ -59,5 +59,11 @@ namespace DNTProfiler.Infrastructure.ScriptDomVisitors
             node.Value = "test";
             base.ExplicitVisit(node);
         }
+
+        public override void ExplicitVisit(VariableReference node)
+        {
+            node.Name = "@p1";
+            base.ExplicitVisit(node);
+        }
     }
 }

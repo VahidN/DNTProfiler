@@ -27,7 +27,8 @@ namespace DNTProfiler.Common.Logger
                     "mscorlib",
                     "EntityFramework",
                     "StructureMap",
-                    "NHibernate"
+                    "NHibernate",
+                    "Nito.Async"
                 };
 
         readonly SortedSet<string> _methodsToExclude = new SortedSet<string>
@@ -39,6 +40,8 @@ namespace DNTProfiler.Common.Logger
 
         private readonly SortedSet<Type> _typesToExclude =
             new SortedSet<Type>(new TypeComparer()) { typeof(CallingMethod) };
+
+        public static bool WontExcludeTypes { set; get; }
 
         public SortedSet<string> AssembliesToExclude
         {
@@ -110,7 +113,7 @@ namespace DNTProfiler.Common.Logger
             var stackTraceString = info.ToString().Trim();
             if (string.IsNullOrWhiteSpace(stackTraceString))
             {
-                stackTraceString = "no-info";
+                stackTraceString = string.Format("no-info @{0}", Guid.NewGuid());
             }
             results.StackTraceHash = stackTraceString.ComputeHash();
 
@@ -182,7 +185,7 @@ namespace DNTProfiler.Common.Logger
                 shouldExcludeType(method) ||
                 isMicrosoftType(method))
             {
-                return null;
+                if (!WontExcludeTypes) return null;
             }
 
             var methodString = method.ToString();
