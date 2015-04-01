@@ -12,6 +12,7 @@
                   x:Name="LstStack"
                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                   MinHeight="100"
+                  MaxHeight="250"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                   ScrollViewer.CanContentScroll="True"
                   VirtualizingStackPanel.IsVirtualizing="True"
@@ -50,14 +51,14 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="170" Header="File">
+                    <GridViewColumn Width="170" Header="File" behaviors:GridViewSortBehavior.PropertyName="CallingFile">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding CallingFile, Mode=OneTime}" ToolTip="{Binding StackTrace, Mode=OneTime}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="50" Header="Line">
+                    <GridViewColumn Width="50" Header="Line" behaviors:GridViewSortBehavior.PropertyName="CallingLine">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding CallingLine, Mode=OneTime}" ToolTip="{Binding StackTrace, Mode=OneTime}" />
@@ -65,6 +66,7 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Width="170" Header="Method"
+                                    behaviors:GridViewSortBehavior.PropertyName="CallingMethod"
                                     behaviors:AutoSizeListViewColumns.AutoSizeColumn="True">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
