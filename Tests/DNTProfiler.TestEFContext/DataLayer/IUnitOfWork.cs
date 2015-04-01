@@ -8,7 +8,7 @@ namespace DNTProfiler.TestEFContext.DataLayer
         IDbSet<TEntity> Set<TEntity>() where TEntity : class;
         int SaveAllChanges();
         void MarkAsChanged<TEntity>(TEntity entity) where TEntity : class;
-        IList<T> GetRows<T>(string sql, params object[] parameters) where T : class;
+        IList<T> GetRows<T>(string sql, params object[] parameters);
         IEnumerable<TEntity> AddThisRange<TEntity>(IEnumerable<TEntity> entities) where TEntity : class;
     }
 }

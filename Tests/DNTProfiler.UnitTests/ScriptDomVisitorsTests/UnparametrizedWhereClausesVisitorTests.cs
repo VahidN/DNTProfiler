@@ -61,5 +61,50 @@ namespace DNTProfiler.UnitTests.ScriptDomVisitorsTests
 
             Assert.IsTrue(visitor.IsSuspected);
         }
+
+        [TestMethod]
+        public void CheckUnparametrizedLikes()
+        {
+            const string sql = @"select id from Products where Name like 'P100%'";
+
+            var visitor = new UnparametrizedWhereClausesVisitor();
+            RunTSqlFragmentVisitor.AnalyzeFragmentVisitorBase(sql, sql.ComputeHash(), visitor);
+
+            Assert.IsTrue(visitor.IsSuspected);
+        }
+
+        [TestMethod]
+        public void CheckUnparametrizedLikesWithParenthesis()
+        {
+            const string sql = @"select id from Products where Name like ('P100%')";
+
+            var visitor = new UnparametrizedWhereClausesVisitor();
+            RunTSqlFragmentVisitor.AnalyzeFragmentVisitorBase(sql, sql.ComputeHash(), visitor);
+
+            Assert.IsTrue(visitor.IsSuspected);
+        }
+
+        [TestMethod]
+        public void CheckUnparametrizedLikesWithFunction()
+        {
+            const string sql = @"select id from Products where Name like upper('P100%')";
+
+            var visitor = new UnparametrizedWhereClausesVisitor();
+            RunTSqlFragmentVisitor.AnalyzeFragmentVisitorBase(sql, sql.ComputeHash(), visitor);
+
+            Assert.IsTrue(visitor.IsSuspected);
+        }
+
+
+        [TestMethod]
+        public void CheckUnparametrizedLikesWithCast()
+        {
+            const string sql = @"select id from Products where Name like cast('P100%' as varchar(200))";
+
+            var visitor = new UnparametrizedWhereClausesVisitor();
+            RunTSqlFragmentVisitor.AnalyzeFragmentVisitorBase(sql, sql.ComputeHash(), visitor);
+
+            Assert.IsTrue(visitor.IsSuspected);
+        }
     }
 }

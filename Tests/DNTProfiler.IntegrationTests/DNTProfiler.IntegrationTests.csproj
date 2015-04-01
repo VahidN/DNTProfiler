@@ -82,6 +82,7 @@
     <Compile Include="FunctionCallsInWhereClauseTests.cs" />
     <Compile Include="DuplicateJoinsTests.cs" />
     <Compile Include="CacheableTests.cs" />
+    <Compile Include="PossibleSqlInjectionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

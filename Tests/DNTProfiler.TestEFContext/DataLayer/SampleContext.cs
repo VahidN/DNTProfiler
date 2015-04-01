@@ -41,7 +41,7 @@ namespace DNTProfiler.TestEFContext.DataLayer
             Entry(entity).State = EntityState.Modified;
         }
 
-        public IList<T> GetRows<T>(string sql, params object[] parameters) where T : class
+        public IList<T> GetRows<T>(string sql, params object[] parameters)
         {
             return Database.SqlQuery<T>(sql, parameters).ToList();
         }
