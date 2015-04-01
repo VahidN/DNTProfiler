@@ -10,7 +10,7 @@ namespace DNTProfiler.UnparametrizedWhereClauses
             PluginMetadata = new PluginMetadata
             {
                 PluginName = "Unparameterized Where Clauses",
-                PluginDescription = "Unparameterized queries(ad-hoc queries) will cause more resource consumption (higher CPU and Memory usage of the the database server). Also if you are calling these queries using the `Database.SqlQuery` method directly, be aware of possible SQL injection attacks."
+                PluginDescription = "Unparameterized queries(ad-hoc queries) will cause more resource consumption (higher CPU and Memory usage of the the database server). Also if you are calling these queries using the `Database.SqlQuery/ExecuteSqlCommand` method directly, be aware of possible SQL injection attacks."
             };
 
             PluginAuthor = new PluginAuthor

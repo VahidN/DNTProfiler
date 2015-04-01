@@ -18,24 +18,14 @@ namespace DNTProfiler.Common.Logger
                     typeof(CallingMethod).Assembly.GetName().Name,
                     "Anonymously Hosted DynamicMethods Assembly",
                     "System.Core",
-                    "System.Data",
-                    "System.Data.Entity",
-                    "System.Data.Linq",
-                    "System.Web",
-                    "System.Web.Mvc",
-                    "System.Windows.Forms",
                     "mscorlib",
-                    "EntityFramework",
-                    "StructureMap",
-                    "NHibernate",
-                    "Nito.Async"
+                    "Microsoft.VisualStudio.TestPlatform"
                 };
 
         readonly SortedSet<string> _methodsToExclude = new SortedSet<string>
                 {
                     "lambda_method",
-                    ".ctor",
-                    "System.Web.HttpApplication.IExecutionStep.Execute"
+                    ".ctor"
                 };
 
         private readonly SortedSet<Type> _typesToExclude =
@@ -57,6 +47,8 @@ namespace DNTProfiler.Common.Logger
             }
             get { return _assembliesToExclude; }
         }
+
+        public bool ExcludeMicrosoftTypes { set; get; }
 
         public SortedSet<string> MethodsToExclude
         {
@@ -143,15 +135,6 @@ namespace DNTProfiler.Common.Logger
             return methodBase;
         }
 
-        private static bool isMicrosoftType(MethodBase method)
-        {
-            if (method.ReflectedType == null)
-                return false;
-
-            return method.ReflectedType.FullName.StartsWith("System.") ||
-                   method.ReflectedType.FullName.StartsWith("Microsoft.");
-        }
-
         private static bool isTempFile(string path)
         {
             if (string.IsNullOrWhiteSpace(path))
@@ -233,6 +216,15 @@ namespace DNTProfiler.Common.Logger
             methodInfo.StackTrace = string.Format("{0}", methodSignatureFull);
 
             return methodInfo;
+        }
+
+        private bool isMicrosoftType(MethodBase method)
+        {
+            if (method.ReflectedType == null || !ExcludeMicrosoftTypes)
+                return false;
+
+            return method.ReflectedType.FullName.StartsWith("System.") ||
+                   method.ReflectedType.FullName.StartsWith("Microsoft.");
         }
 
         private bool shouldExcludeType(MethodBase method)

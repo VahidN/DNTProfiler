@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using DNTProfiler.Common.Toolkit;
@@ -17,6 +18,11 @@ namespace DNTProfiler.Infrastructure.ScriptDomVisitors
         public static TSqlScript AnalyzeFragmentVisitor(string tSql, string sqlHash, TSqlFragmentVisitor visitor)
         {
             var sqlFragment = SqlFragmentProvider.GetSqlFragment(tSql, sqlHash);
+            if (sqlFragment == null)
+            {
+                throw new InvalidOperationException(string.Format("Failed to get sqlFragment of \n{0}", tSql));
+            }
+
             sqlFragment.Accept(visitor);
             return sqlFragment;
         }

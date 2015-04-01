@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using DNTProfiler.Common.Logger;
+using DNTProfiler.Common.Mvvm;
+using DNTProfiler.Common.Threading;
 using Microsoft.SqlServer.TransactSql.ScriptDom;
 using DNTProfiler.Common.Toolkit;
 
@@ -10,13 +14,30 @@ namespace DNTProfiler.Infrastructure.ScriptDomVisitors
 {
     public static class SqlFragmentProvider
     {
-        private static readonly Dictionary<string, TSqlScript> _sqlFragments = new Dictionary<string, TSqlScript>();
+        private static readonly ConcurrentDictionary<string, TSqlScript> _sqlFragments =
+            new ConcurrentDictionary<string, TSqlScript>();
 
         public static TSqlScript GetSqlFragment(string tSql, string sqlHash, int timeoutSeconds = 7)
         {
-            var runner = TimedRunner.RunWithTimeout(() => getSqlFragment(tSql, sqlHash), timeoutSeconds);
+            var runner = TimedRunner.RunWithTimeout(() =>
+            {
+                try
+                {
+                    return getSqlFragment(tSql, sqlHash);
+                }
+                catch (Exception ex)
+                {
+                    new ExceptionLogger().LogExceptionToFile(ex, AppMessenger.LogFile);
+                    DispatcherHelper.DispatchAction(() => AppMessenger.Messenger.NotifyColleagues("ShowException", ex));
+                    return null;
+                }
+            }, timeoutSeconds);
+
             if (runner.IsTimedOut)
-                throw new TimeoutException(string.Format("Timed out parsing SqlFragment:{0}{1}", Environment.NewLine, tSql));
+            {
+                throw new TimeoutException(string.Format("Timed out parsing SqlFragment:{0}{1}",
+                    Environment.NewLine, tSql));
+            }
 
             return runner.Result;
         }
@@ -38,7 +59,7 @@ namespace DNTProfiler.Infrastructure.ScriptDomVisitors
 
             if (errors == null || !errors.Any())
             {
-                _sqlFragments.Add(sqlHash, sqlFragment);
+                _sqlFragments.TryAdd(sqlHash, sqlFragment);
                 return sqlFragment;
             }
 

@@ -15,5 +15,15 @@ namespace DNTProfiler.IntegrationTests
                 "select id from Products where Name like '" + name + "%'");
             Assert.IsNotNull(rows);
         }
+
+        [TestMethod]
+        public void ShouldEmitPossibleSqlInjection2()
+        {
+            var unitOfWork = ObjectFactory.Container.GetInstance<IUnitOfWork>();
+            var name = "P100";
+            var result = unitOfWork.ExecuteSqlCommand(
+                "update Products set Price = 100 where Name like '" + name + "%'");
+            Assert.IsTrue(result > 0);
+        }
     }
 }

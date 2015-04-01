@@ -45,5 +45,10 @@ namespace DNTProfiler.TestEFContext.DataLayer
         {
             return Database.SqlQuery<T>(sql, parameters).ToList();
         }
+
+        public int ExecuteSqlCommand(string sql, params object[] parameters)
+        {
+            return Database.ExecuteSqlCommand(sql, parameters);
+        }
     }
 }

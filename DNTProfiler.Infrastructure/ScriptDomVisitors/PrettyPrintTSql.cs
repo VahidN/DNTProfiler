@@ -19,6 +19,11 @@ namespace DNTProfiler.Infrastructure.ScriptDomVisitors
             }
 
             var sqlFragment = SqlFragmentProvider.GetSqlFragment(tSql, sqlHash);
+            if (sqlFragment == null)
+            {
+                return tSql;
+            }
+
             var scriptGenerator = new Sql120ScriptGenerator(new SqlScriptGeneratorOptions
             {
                 SqlVersion = SqlVersion.Sql120,
