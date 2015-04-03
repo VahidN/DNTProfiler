@@ -1,6 +1,5 @@
 ﻿using System.Collections.Specialized;
 using System.ComponentModel;
-using DNTProfiler.Common.Converters;
 using DNTProfiler.Common.JsonToolkit;
 using DNTProfiler.Common.Models;
 using DNTProfiler.Common.Mvvm;

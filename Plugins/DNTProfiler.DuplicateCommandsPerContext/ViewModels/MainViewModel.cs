@@ -1,13 +1,13 @@
 ﻿using System.Collections.Specialized;
 using System.ComponentModel;
-using DNTProfiler.ByException.Core;
 using DNTProfiler.Common.JsonToolkit;
 using DNTProfiler.Common.Models;
 using DNTProfiler.Common.Mvvm;
+using DNTProfiler.DuplicateCommandsPerContext.Core;
 using DNTProfiler.Infrastructure.ViewModels;
 using DNTProfiler.PluginsBase;
 
-namespace DNTProfiler.ByException.ViewModels
+namespace DNTProfiler.DuplicateCommandsPerContext.ViewModels
 {
     public class MainViewModel : MainViewModelBase
     {
@@ -30,7 +30,10 @@ namespace DNTProfiler.ByException.ViewModels
             switch (e.PropertyName)
             {
                 case "SelectedApplicationIdentity":
-                    _callbacksManager.ShowSelectedApplicationIdentityLocalCommands();
+                    _callbacksManager.ShowSelectedApplicationIdentityLocalContexts();
+                    break;
+                case "SelectedContext":
+                    _callbacksManager.ShowSelectedContextRelatedDuplicateCommands();
                     break;
                 case "SelectedExecutedCommand":
                     _callbacksManager.ShowSelectedCommandRelatedStackTraces();
@@ -43,27 +46,28 @@ namespace DNTProfiler.ByException.ViewModels
             PluginContext.Reset = () =>
             {
                 ResetAll();
+                _callbacksManager.Reset();
             };
 
             PluginContext.GetResults = () =>
             {
-                return GuiModelData.RelatedCommands.ToFormattedJson();
+                return GuiModelData.RelatedStackTraces.ToFormattedJson();
             };
         }
 
         private void setEvenets()
         {
-            PluginContext.ProfilerData.Results.CollectionChanged += Results_CollectionChanged; ;
+            PluginContext.ProfilerData.Commands.CollectionChanged += Commands_CollectionChanged;
         }
 
-        void Results_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void Commands_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    foreach (CommandResult item in e.NewItems)
+                    foreach (Command item in e.NewItems)
                     {
-                        _callbacksManager.AddExceptionalCommands(item);
+                        _callbacksManager.ManageCommand(item);
                     }
                     break;
             }

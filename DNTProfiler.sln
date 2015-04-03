@@ -317,6 +317,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNTProfiler.PossibleSqlInje
 		{25641353-AEA2-403D-993E-B0EDDC73D7A4} = {25641353-AEA2-403D-993E-B0EDDC73D7A4}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNTProfiler.DuplicateCommandsPerContext", "Plugins\DNTProfiler.DuplicateCommandsPerContext\DNTProfiler.DuplicateCommandsPerContext.csproj", "{E0FB189F-32F2-4BDF-97C2-201650609608}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -523,6 +525,10 @@ Global
 		{4D90A83E-5506-4641-9EA8-0BB064CC381B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D90A83E-5506-4641-9EA8-0BB064CC381B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D90A83E-5506-4641-9EA8-0BB064CC381B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0FB189F-32F2-4BDF-97C2-201650609608}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0FB189F-32F2-4BDF-97C2-201650609608}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0FB189F-32F2-4BDF-97C2-201650609608}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0FB189F-32F2-4BDF-97C2-201650609608}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -577,6 +583,7 @@ Global
 		{DF16DECE-915E-4C9E-8AC7-90951E396204} = {5B8A8EF2-84A6-48F1-8B96-7899019E2848}
 		{663EDB2E-D511-44AC-81B4-8B64284A4DBB} = {687C659F-E351-4279-8B5F-8C5EE58339A2}
 		{4D90A83E-5506-4641-9EA8-0BB064CC381B} = {687C659F-E351-4279-8B5F-8C5EE58339A2}
+		{E0FB189F-32F2-4BDF-97C2-201650609608} = {687C659F-E351-4279-8B5F-8C5EE58339A2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		VisualSVNWorkingCopyRoot = .

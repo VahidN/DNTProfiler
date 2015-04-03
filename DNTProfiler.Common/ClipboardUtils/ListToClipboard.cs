@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using DNTProfiler.Common.Converters;
 using DNTProfiler.Common.JsonToolkit;
 
 namespace DNTProfiler.Common.ClipboardUtils

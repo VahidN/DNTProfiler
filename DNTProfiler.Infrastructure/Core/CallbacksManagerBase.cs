@@ -433,12 +433,16 @@ namespace DNTProfiler.Infrastructure.Core
                 .ToList();
 
             foreach (var item in relatedCommands.Where(item => relatedCommands.Any(
-                            command => command.CommandId != item.CommandId &&
-                           (command.SqlHash.Equals(item.SqlHash, StringComparison.OrdinalIgnoreCase) ||
-                            command.NormalizedSqlHash.Equals(item.NormalizedSqlHash, StringComparison.OrdinalIgnoreCase)))))
+                                command => command.CommandId != item.CommandId &&
+                                       (command.SqlHash.Equals(item.SqlHash, StringComparison.OrdinalIgnoreCase) ||
+                                       command.NormalizedSqlHash.Equals(item.NormalizedSqlHash, StringComparison.OrdinalIgnoreCase))))
+                            .OrderBy(command => command.SqlHash)
+                            .ThenBy(command => command.NormalizedSqlHash))
             {
                 GuiModelData.RelatedCommands.Add(item);
             }
+
+            ActivateRelatedStackTraces();
         }
 
         public void ShowSelectedTrafficUrlRelatedCommands()
