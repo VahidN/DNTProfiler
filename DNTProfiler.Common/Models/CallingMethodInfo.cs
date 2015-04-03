@@ -2,6 +2,8 @@
 {
     public class CallingMethodInfo
     {
+        public string AssemblyName { set; get; }
+
         public int CallingCol { set; get; }
 
         public string CallingFile { set; get; }

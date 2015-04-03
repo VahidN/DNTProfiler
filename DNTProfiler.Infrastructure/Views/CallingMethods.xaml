@@ -42,7 +42,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Calling Methods Hierarchy" Width="550">
+                    <GridViewColumn Header="Calling Methods Hierarchy" Width="670">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <views1:CallingMethodsHierarchy />

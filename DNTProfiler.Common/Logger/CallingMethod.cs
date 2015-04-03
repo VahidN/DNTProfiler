@@ -214,6 +214,7 @@ namespace DNTProfiler.Common.Logger
             var methodSignatureFull = string.Format("{0} {1}.{2}", returnName, typeNameFull, methodSignature);
             methodInfo.CallingMethod = method.Name;
             methodInfo.StackTrace = string.Format("{0}", methodSignatureFull);
+            methodInfo.AssemblyName = type.Assembly.FullName;
 
             return methodInfo;
         }

@@ -51,6 +51,13 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
+                    <GridViewColumn Width="170" Header="Assembly" behaviors:GridViewSortBehavior.PropertyName="AssemblyName">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding AssemblyName, Mode=OneTime}" ToolTip="{Binding StackTrace, Mode=OneTime}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Width="170" Header="File" behaviors:GridViewSortBehavior.PropertyName="CallingFile">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
