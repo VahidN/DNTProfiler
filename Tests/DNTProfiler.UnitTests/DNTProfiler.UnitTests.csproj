@@ -69,6 +69,7 @@
     <Compile Include="ScriptDomVisitorsTests\UnboundedResultSetVisitorTests.cs" />
     <Compile Include="ScriptDomVisitorsTests\DuplicateJoinsVisitorTests.cs" />
     <Compile Include="ScriptDomVisitorsTests\NormalizedSqlTests.cs" />
+    <Compile Include="ScriptDomVisitorsTests\SelectStarExpressionVisitorTests.cs" />
     <Compile Include="ScriptDomVisitorsTests\UnparametrizedWhereClausesVisitorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -61,6 +61,17 @@ namespace NHibernateConsoleTests
                         Console.WriteLine("Name: " + item.Name);
                     }
                 }
+
+                using (var session = sessionFactory.OpenSession())
+                {
+                    var productsList = session.CreateSQLQuery("select * from Products where name like 'Widget%'")
+                                              .AddEntity(typeof(Product))
+                                              .List<Product>();
+                    foreach (var item in productsList)
+                    {
+                        Console.WriteLine("Name: " + item.Name);
+                    }
+                }
             }
 
 

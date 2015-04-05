@@ -137,6 +137,7 @@
     <Compile Include="ScriptDomVisitors\PrettyPrintTSql.cs" />
     <Compile Include="ScriptDomVisitors\RunTSqlFragmentVisitor.cs" />
     <Compile Include="ScriptDomVisitors\ScriptDomUtils.cs" />
+    <Compile Include="ScriptDomVisitors\SelectStarExpressionVisitor.cs" />
     <Compile Include="ScriptDomVisitors\SqlFragmentProvider.cs" />
     <Compile Include="ScriptDomVisitors\SqlFragmentVisitorBase.cs" />
     <Compile Include="ScriptDomVisitors\SqlNormalizerVisitor.cs" />

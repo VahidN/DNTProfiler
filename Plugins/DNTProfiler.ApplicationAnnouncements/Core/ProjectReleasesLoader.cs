@@ -76,6 +76,7 @@ namespace DNTProfiler.ApplicationAnnouncements.Core
                     return;
 
                 _mainGuiModel.ReleaseInfo = releaseInfo;
+                _mainGuiModel.SelectedRelease = releaseInfo.FirstOrDefault();
                 _context.NotifyPluginsHost(NotificationType.Reset, releaseInfo.Count);
             }, taskScheduler);
         }

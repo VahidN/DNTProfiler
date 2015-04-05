@@ -1,6 +1,5 @@
 ﻿using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Linq;
 using DNTProfiler.Common.JsonToolkit;
 using DNTProfiler.Common.Models;
 using DNTProfiler.Common.Mvvm;
@@ -9,14 +8,14 @@ using DNTProfiler.Infrastructure.ScriptDomVisitors;
 using DNTProfiler.Infrastructure.ViewModels;
 using DNTProfiler.PluginsBase;
 
-namespace DNTProfiler.PossibleSqlInjections.ViewModels
+namespace DNTProfiler.SelectStar.ViewModels
 {
     public class MainViewModel : MainViewModelBase
     {
         private readonly CallbacksManagerBase _callbacksManager;
 
         public MainViewModel(ProfilerPluginBase pluginContext)
-            : base(pluginContext)
+            :base(pluginContext)
         {
             if (Designer.IsInDesignModeStatic)
                 return;
@@ -27,13 +26,6 @@ namespace DNTProfiler.PossibleSqlInjections.ViewModels
             setEvenets();
         }
 
-        private static bool isCustomDirectQuery(CallingMethodInfo info)
-        {
-            return info.CallingMethod.Contains("ExecuteSqlCommand") ||
-                   info.CallingMethod.Contains("ExecuteSqlQuery") ||
-                   info.StackTrace.Contains("SessionImpl.ListCustomQuery");
-        }
-
         private void Commands_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
@@ -41,11 +33,7 @@ namespace DNTProfiler.PossibleSqlInjections.ViewModels
                 case NotifyCollectionChangedAction.Add:
                     foreach (Command command in e.NewItems)
                     {
-                        if (command.StackTrace.CallingMethodInfoList.Any(info => isCustomDirectQuery(info)))
-                        {
-                            _callbacksManager.RunAnalysisVisitorOnCommand(
-                                new UnparametrizedWhereClausesVisitor(), command);
-                        }
+                        _callbacksManager.RunAnalysisVisitorOnCommand(new SelectStarExpressionVisitor(), command);
                     }
                     break;
             }

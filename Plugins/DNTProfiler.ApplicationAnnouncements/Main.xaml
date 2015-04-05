@@ -12,8 +12,8 @@
     </UserControl.Resources>
     <Grid x:Name="ThisGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="570"/>
         </Grid.RowDefinitions>
         <ListView
             Grid.Row="0"
@@ -105,7 +105,9 @@
 
         <GroupBox Margin="2" Grid.Row="1" Header="Release Info">
             <Grid>
-                <WebBrowser x:Name="WebBrowser1" behaviors:WebBrowserBehavior.BindableSource="{Binding ThisGuiModelData.SelectedRelease.ReleaseHtmlUrl}"/>
+                <WebBrowser x:Name="WebBrowser1"
+                            MaxHeight="500"
+                            behaviors:WebBrowserBehavior.BindableSource="{Binding ThisGuiModelData.SelectedRelease.ReleaseHtmlUrl}"/>
             </Grid>
         </GroupBox>
     </Grid>
