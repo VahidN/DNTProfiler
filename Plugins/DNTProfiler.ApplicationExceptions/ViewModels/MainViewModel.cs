@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using DNTProfiler.ApplicationExceptions.Core;
@@ -29,14 +30,13 @@ namespace DNTProfiler.ApplicationExceptions.ViewModels
 
         private void addException(Exception ex)
         {
-            AppExceptionsGuiData.AppExceptionsList.Add(new AppException
-            {
-                Message = ex.Message,
-                Details = ExceptionLogger.GetExceptionCallStack(ex)
-            });
-
             DispatcherHelper.DispatchAction(() =>
             {
+                AppExceptionsGuiData.AppExceptionsList.Add(new AppException
+                {
+                    Message = ex.Message,
+                    Details = ExceptionLogger.GetExceptionCallStack(ex)
+                });
                 PluginContext.NotifyPluginsHost(NotificationType.Update, 1);
             });
         }
@@ -80,6 +80,7 @@ namespace DNTProfiler.ApplicationExceptions.ViewModels
         {
             AppDomain.CurrentDomain.UnhandledException += currentDomainUnhandledException;
             Application.Current.DispatcherUnhandledException += appDispatcherUnhandledException;
+            TaskScheduler.UnobservedTaskException += taskSchedulerUnobservedTaskException;
 
             AppMessenger.Messenger.Register<Exception>("ShowException", exception => addException(exception));
         }
@@ -96,6 +97,17 @@ namespace DNTProfiler.ApplicationExceptions.ViewModels
                 });
                 PluginContext.NotifyPluginsHost(NotificationType.Update, 1);
                 new ExceptionLogger().LogExceptionToFile(new NotImplementedException(error), AppMessenger.LogFile);
+            });
+        }
+
+        void taskSchedulerUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+        {
+            e.SetObserved();
+            e.Exception.Flatten().Handle(ex =>
+            {
+                new ExceptionLogger().LogExceptionToFile(ex, AppMessenger.LogFile);
+                addException(ex);
+                return true;
             });
         }
     }

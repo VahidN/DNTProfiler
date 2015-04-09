@@ -114,8 +114,11 @@ namespace DNTProfiler.ViewModels
 
         void doStart(string data)
         {
-            _selfHostConfig.OpenWait(GuiModelData.ServerUri, GuiModelData.AllowRemoteConnections);
-            _isStated = true;
+            Task.Factory.StartNew(() =>
+            {
+                _selfHostConfig.OpenWait(GuiModelData.ServerUri, GuiModelData.AllowRemoteConnections);
+                _isStated = true;
+            });
         }
 
         void doStop(string data)

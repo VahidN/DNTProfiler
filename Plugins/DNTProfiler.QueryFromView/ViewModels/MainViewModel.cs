@@ -54,15 +54,15 @@ namespace DNTProfiler.QueryFromView.ViewModels
 
         private void setEvenets()
         {
-            PluginContext.ProfilerData.StackTraces.CollectionChanged += StackTraces_CollectionChanged;
+            PluginContext.ProfilerData.Commands.CollectionChanged += Commands_CollectionChanged;
         }
 
-        private void StackTraces_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void Commands_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    foreach (CallingMethodStackTrace item in e.NewItems)
+                    foreach (Command item in e.NewItems)
                     {
                         _callbacksManager.ManageStackTraces(item);
                     }

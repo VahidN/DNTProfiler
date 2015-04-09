@@ -25,21 +25,27 @@ namespace DNTProfiler.QueryFromView.Core
         {
         }
 
-        public void ManageStackTraces(CallingMethodStackTrace item)
+        public void ManageStackTraces(Command command)
         {
-            if (!hasQueryFromView(item))
+            var stackTrace = GetStackTrace(command);
+            if (stackTrace == null)
+                return;
+
+            stackTrace.ApplicationIdentity = command.ApplicationIdentity;
+
+            if (!hasQueryFromView(stackTrace))
             {
                 return;
             }
 
-            if (item.ApplicationIdentity.Equals(GuiModelData.SelectedApplicationIdentity))
+            if (stackTrace.ApplicationIdentity.Equals(GuiModelData.SelectedApplicationIdentity))
             {
-                GuiModelData.RelatedStackTraces.Add(item);
+                GuiModelData.RelatedStackTraces.Add(stackTrace);
             }
 
-            _localCallingMethodStackTraces.Add(item);
+            _localCallingMethodStackTraces.Add(stackTrace);
             PluginContext.NotifyPluginsHost(NotificationType.Update, 1);
-            UpdateAppIdentityNotificationsCount(item.ApplicationIdentity);
+            UpdateAppIdentityNotificationsCount(stackTrace.ApplicationIdentity);
         }
 
         public void Reset()
