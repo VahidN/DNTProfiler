@@ -59,8 +59,9 @@ namespace DNTProfiler.ViewModels
 
         private void activatePluginTabItem()
         {
-            if (GuiModelData.SelectedPlugin != null)
-                GuiModelData.SelectedTabIndex = GuiModelData.SelectedPlugin.Id;
+            if (GuiModelData.SelectedPlugin == null) return;
+            GuiModelData.SelectedPlugin.IsVisible = true;
+            GuiModelData.SelectedTabIndex = GuiModelData.SelectedPlugin.Id;
         }
 
         void currentExit(object sender, ExitEventArgs e)

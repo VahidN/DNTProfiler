@@ -24,17 +24,17 @@ namespace DNTProfiler.Common.Controls
                 return;
 
             var model = SelectedItem;
-            var si = ItemContainerGenerator.ContainerFromItem(model) as TabItem;
-            if (si == null || _tabScrollViewer == null)
+            var tabItem = ItemContainerGenerator.ContainerFromItem(model) as TabItem;
+            if (tabItem == null || _tabScrollViewer == null)
                 return;
 
-            if (si.ActualWidth.ApproxEquals(0) && !si.IsLoaded)
+            if (tabItem.ActualWidth.ApproxEquals(0) && !tabItem.IsLoaded)
             {
-                si.Loaded += (s, e) => scrollToSelectedItem();
+                tabItem.Loaded += (s, e) => scrollToSelectedItem();
                 return;
             }
 
-            scrollToItem(si);
+            scrollToItem(tabItem);
         }
 
         private void scrollToItem(TabItem selectedTabItem)
@@ -45,13 +45,14 @@ namespace DNTProfiler.Common.Controls
             var tabItems = Items.Cast<object>()
                 .Select(item => ItemContainerGenerator.ContainerFromItem(item) as TabItem).ToList();
 
-            var leftItems = new List<TabItem>();
+            var leftTabItems = new List<TabItem>();
             int index;
             for (index = 0; index < tabItems.Count; index++)
             {
-                if (!Equals(tabItems[index], selectedTabItem))
+                var tabItem = tabItems[index];
+                if (!Equals(tabItem, selectedTabItem))
                 {
-                    leftItems.Add(tabItems[index]);
+                    leftTabItems.Add(tabItem);
                 }
                 else
                 {
@@ -59,12 +60,12 @@ namespace DNTProfiler.Common.Controls
                 }
             }
 
-            var leftItemsWidth = leftItems.Sum(ti => ti.ActualWidth);
+            var leftItemsWidth = leftTabItems.Sum(tabItem => tabItem.ActualWidth);
 
             if (leftItemsWidth + selectedTabItem.ActualWidth > _tabScrollViewer.HorizontalOffset + _tabScrollViewer.ViewportWidth)
             {
                 var currentHorizontalOffset = (leftItemsWidth + selectedTabItem.ActualWidth) - _tabScrollViewer.ViewportWidth;
-                var hMargin = !leftItems.Any(ti => ti.IsSelected) && !selectedTabItem.IsSelected ? _tabPanelTop.Margin.Left + _tabPanelTop.Margin.Right : 0;
+                var hMargin = !leftTabItems.Any(ti => ti.IsSelected) && !selectedTabItem.IsSelected ? _tabPanelTop.Margin.Left + _tabPanelTop.Margin.Right : 0;
                 currentHorizontalOffset += hMargin;
                 if (index + 1 < tabItems.Count)
                 {
@@ -76,7 +77,7 @@ namespace DNTProfiler.Common.Controls
             else if (leftItemsWidth < _tabScrollViewer.HorizontalOffset)
             {
                 var currentHorizontalOffset = leftItemsWidth;
-                var hMargin = leftItems.Any(ti => ti.IsSelected) ? _tabPanelTop.Margin.Left + _tabPanelTop.Margin.Right : 0;
+                var hMargin = leftTabItems.Any(ti => ti.IsSelected) ? _tabPanelTop.Margin.Left + _tabPanelTop.Margin.Right : 0;
                 currentHorizontalOffset -= hMargin;
                 if (index - 1 >= 0)
                 {

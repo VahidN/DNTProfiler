@@ -15,6 +15,7 @@
                 <ResourceDictionary Source="Themes/GroupBox.xaml" />
                 <ResourceDictionary Source="Themes/ListView.xaml" />
                 <ResourceDictionary Source="Themes/TextBox.xaml" />
+                <ResourceDictionary Source="Themes/CheckBox.xaml" />
                 <ResourceDictionary Source="Themes/TextBlock.xaml"/>
                 <ResourceDictionary Source="Themes/TabControl.xaml" />
                 <ResourceDictionary Source="Themes/ListBox.xaml" />

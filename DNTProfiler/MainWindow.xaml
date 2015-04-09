@@ -9,6 +9,9 @@
         xmlns:mvvm="clr-namespace:DNTProfiler.Common.Mvvm;assembly=DNTProfiler.Common"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         FontSize="11" WindowStartupLocation="CenterScreen" Width="812">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Window.Resources>
     <controls:BusyIndicator IsBusy="{Binding GuiModelData.IsBusy}"
                             BusyContent="Loading. Please wait..."
                             DisplayAfter="00:00:00">
@@ -53,21 +56,29 @@
                                                    Height="{Binding Path=RowDefinitions[0].ActualHeight, RelativeSource={RelativeSource AncestorType=Grid}}"
                                                    SelectedIndex="{Binding GuiModelData.SelectedTabIndex, Mode=TwoWay}"
                                                    ItemsSource="{Binding GuiModelData.Plugins}">
-                        <TabControl.ItemTemplate>
+                        <controls:ScrollableTabControl.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
+                                    <CheckBox IsChecked="{Binding IsVisible, Mode=TwoWay}"
+                                              Margin="0,0,3,0"
+                                              Style="{StaticResource SimpleCheckBoxStyle}"/>
                                     <TextBlock Text="{Binding Header}"/>
                                     <Label Content="{Binding NotificationsCount}"
                                            Margin="3 0 0 0"
                                            Style="{StaticResource CircularLabel}"/>
                                 </StackPanel>
                             </DataTemplate>
-                        </TabControl.ItemTemplate>
-                        <TabControl.ContentTemplate>
+                        </controls:ScrollableTabControl.ItemTemplate>
+                        <controls:ScrollableTabControl.ContentTemplate>
                             <DataTemplate>
                                 <ContentControl Content="{Binding Content}" />
                             </DataTemplate>
-                        </TabControl.ContentTemplate>
+                        </controls:ScrollableTabControl.ContentTemplate>
+                        <controls:ScrollableTabControl.ItemContainerStyle>
+                            <Style TargetType="TabItem" BasedOn="{StaticResource StandardTabItemControl}">
+                                <Setter Property="Visibility" Value="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                            </Style>
+                        </controls:ScrollableTabControl.ItemContainerStyle>
                     </controls:ScrollableTabControl>
                 </Grid>
             </ScrollViewer>

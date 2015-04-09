@@ -9,6 +9,7 @@ namespace DNTProfiler.Models
     public class Plugin : BaseViewModel
     {
         private UserControl _content;
+        private bool _isVisible;
         private int _notificationsCount;
 
         public PluginCategory Category
@@ -42,6 +43,16 @@ namespace DNTProfiler.Models
         }
 
         public int Id { set; get; }
+
+        public bool IsVisible
+        {
+            get { return _isVisible; }
+            set
+            {
+                _isVisible = value;
+                NotifyPropertyChanged(() => IsVisible);
+            }
+        }
 
         public int NotificationsCount
         {
