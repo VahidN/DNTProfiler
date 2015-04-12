@@ -119,7 +119,8 @@
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>Copy "$(ProjectDir)$(OutDir)$(TargetName).*" "$(SolutionDir)DNTProfiler\bin\Release\Plugins"</PostBuildEvent>
+    <PostBuildEvent>Md "$(SolutionDir)DNTProfiler\bin\Release\Plugins"
+Copy "$(ProjectDir)$(OutDir)$(TargetName).*" "$(SolutionDir)DNTProfiler\bin\Release\Plugins"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

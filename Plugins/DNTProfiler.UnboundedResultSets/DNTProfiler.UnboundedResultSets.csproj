@@ -105,7 +105,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>Copy "$(ProjectDir)$(OutDir)$(TargetName).*" "$(SolutionDir)DNTProfiler\bin\Release\Plugins"</PostBuildEvent>
+    <PostBuildEvent>Md "$(SolutionDir)DNTProfiler\bin\Release\Plugins"
+Copy "$(ProjectDir)$(OutDir)$(TargetName).*" "$(SolutionDir)DNTProfiler\bin\Release\Plugins"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
