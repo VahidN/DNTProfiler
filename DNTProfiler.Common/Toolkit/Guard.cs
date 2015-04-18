@@ -25,5 +25,10 @@ namespace DNTProfiler.Common.Toolkit
 
             return (-tolerance < difference && tolerance > difference);
         }
+
+        public static int StringSize(this string value)
+        {
+            return !string.IsNullOrWhiteSpace(value) ? value.Length * sizeof(char) : 0;
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using DNTProfiler.Common.Toolkit;
 
 namespace DNTProfiler.Common.Models
 {
@@ -14,6 +15,7 @@ namespace DNTProfiler.Common.Models
         private string _resultException;
         private int? _rowsReturned;
         private string _sql;
+        private int _sqlSize;
 
         public Command()
         {
@@ -88,6 +90,8 @@ namespace DNTProfiler.Common.Models
 
         public IsolationLevel? IsolationLevel { set; get; }
 
+        public string NormalizedSqlHash { set; get; }
+
         public IList<CommandParameter> Parameters { set; get; }
 
         public string ResultException
@@ -116,13 +120,29 @@ namespace DNTProfiler.Common.Models
             set
             {
                 _sql = value;
+                SqlSize = value.StringSize();
                 NotifyPropertyChanged(() => Sql);
             }
         }
 
         public string SqlHash { set; get; }
-        public string NormalizedSqlHash { set; get; }
 
+        public int SqlSize
+        {
+            get
+            {
+                if (_sqlSize == 0)
+                {
+                    SqlSize = Sql.StringSize();
+                }
+                return _sqlSize;
+            }
+            set
+            {
+                _sqlSize = value;
+                NotifyPropertyChanged(() => SqlSize);
+            }
+        }
         public override bool Equals(object obj)
         {
             var command = obj as Command;

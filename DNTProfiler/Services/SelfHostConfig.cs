@@ -28,7 +28,12 @@ namespace DNTProfiler.Services
 
         private static HttpSelfHostConfiguration getHostConfiguration(string serverUri, bool allowRemoteConnections)
         {
-            var config = new HttpSelfHostConfiguration(serverUri);
+            var config = new HttpSelfHostConfiguration(serverUri)
+            {
+                // to avoid `(413) Request Entity Too Large` exceptions
+                MaxReceivedMessageSize = int.MaxValue,
+                MaxBufferSize = int.MaxValue
+            };
 
             if (!allowRemoteConnections)
             {

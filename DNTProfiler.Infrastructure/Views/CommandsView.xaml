@@ -88,6 +88,13 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
+                    <GridViewColumn Width="90" Header="SQL Len" behaviors:GridViewSortBehavior.PropertyName="SqlSize">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding SqlSize, Converter={StaticResource FormatSizeConverter}}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Width="300" Header="Parameters" behaviors:GridViewSortBehavior.PropertyName="Parameters">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>

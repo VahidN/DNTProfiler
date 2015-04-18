@@ -23,7 +23,7 @@ using System.Runtime.InteropServices;
 #endif
 
 // Assembly Versions are incremented manually when branching the code for a release.
-[assembly: AssemblyVersion("1.4.828.0")]
+[assembly: AssemblyVersion("1.5.837.0")]
 // Assembly File Version should be incremented automatically as part of the build process.
-[assembly: AssemblyFileVersion("1.4.828.0")]
+[assembly: AssemblyFileVersion("1.5.837.0")]
 
