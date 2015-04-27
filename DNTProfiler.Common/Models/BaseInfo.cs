@@ -39,7 +39,7 @@ namespace DNTProfiler.Common.Models
             set
             {
                 _jsonContent = value;
-                if (!string.IsNullOrWhiteSpace(value)) JsonContentSize = value.Length * sizeof(char);
+                JsonContentSize = value.StringSize();
                 NotifyPropertyChanged(() => JsonContent);
             }
         }

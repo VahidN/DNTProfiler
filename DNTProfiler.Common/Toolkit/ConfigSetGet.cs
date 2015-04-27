@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Linq;
 using DNTProfiler.Common.Mvvm;
 
 namespace DNTProfiler.Common.Toolkit
@@ -7,10 +8,12 @@ namespace DNTProfiler.Common.Toolkit
     public static class ConfigSetGet
     {
         /// <summary>
-        /// read settings from app.config file
+        /// read settings from app.config/web.config file
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
+        /// <exception cref="ConfigurationErrorsException">Could not retrieve a <see cref="T:System.Collections.Specialized.NameValueCollection" /> object with the application settings data.</exception>
+        /// <exception cref="InvalidOperationException">Undefined key in app.config/web.config.</exception>
         public static string GetConfigData(string key)
         {
             if (string.IsNullOrWhiteSpace(key))
@@ -20,11 +23,12 @@ namespace DNTProfiler.Common.Toolkit
             if (Designer.IsInDesignModeStatic)
                 return "0";
 
-            var configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            var appSettings = configuration.AppSettings;
-            string res = appSettings.Settings[key].Value;
-            if (res == null) throw new Exception("Undefined: " + key);
-            return res;
+            if (!ConfigurationManager.AppSettings.AllKeys.Any(keyItem => keyItem.Equals(key)))
+            {
+                throw new InvalidOperationException(string.Format("Undefined key in app.config/web.config: {0}", key));
+            }
+
+            return ConfigurationManager.AppSettings[key];
         }
 
         public static void SetConfigData(string key, string data)

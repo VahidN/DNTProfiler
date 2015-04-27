@@ -1,5 +1,6 @@
-﻿using System.Web.Mvc;
-using DNTProfiler.ServiceLayer;
+﻿using System;
+using System.Web.Mvc;
+using DNTProfiler.Common.Toolkit;
 using DNTProfiler.ServiceLayer.Contracts;
 using DNTProfiler.TestEFContext.DataLayer;
 using DNTProfiler.TestEFContext.Domain;
@@ -21,6 +22,7 @@ namespace DNTProfiler.MvcTest.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            ViewBag.IsClientValidationEnabled = ConfigSetGet.GetConfigData("ClientValidationEnabled").Equals("true", StringComparison.OrdinalIgnoreCase);
             var list = _productService.GetAllProductsIncludeCategory();
             return View(list);
         }

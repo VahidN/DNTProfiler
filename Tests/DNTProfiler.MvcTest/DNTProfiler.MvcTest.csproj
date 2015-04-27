@@ -163,6 +163,10 @@
     <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\DNTProfiler.Common\DNTProfiler.Common.csproj">
+      <Project>{8915b3a9-f138-4394-bd73-87ae07d20399}</Project>
+      <Name>DNTProfiler.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\DNTProfiler.Core\DNTProfiler.EntityFramework.Core.csproj">
       <Project>{484dc2d3-21e9-4c77-bca2-c3805906eac8}</Project>
       <Name>DNTProfiler.EntityFramework.Core</Name>
