@@ -12,7 +12,7 @@ namespace DNTProfiler.TestEFContext.Domain
         [Required]
         public string Name { get; set; }
 
-        public int Price { get; set; }
+        public double Price { get; set; }
 
         [ForeignKey("CategoryId")]
         public virtual Category Category { get; set; }

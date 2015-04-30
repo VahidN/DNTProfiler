@@ -110,6 +110,7 @@
     <Compile Include="Logger\CallingMethod.cs" />
     <Compile Include="Logger\LoggerPath.cs" />
     <Compile Include="Logger\TypeComparer.cs" />
+    <Compile Include="Models\ColumnInfo.cs" />
     <Compile Include="Profiler\DbProfiler.cs" />
     <Compile Include="Logger\CommandsTransmitter.cs" />
     <Compile Include="Profiler\IDbProfiler.cs" />

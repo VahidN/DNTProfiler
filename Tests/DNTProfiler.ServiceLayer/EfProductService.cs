@@ -44,7 +44,7 @@ namespace DNTProfiler.ServiceLayer
             return _products.Where(x => x.Name.StartsWith(name)).ToList();
         }
 
-        public int GetTotalPriceSumInt()
+        public double GetTotalPriceSumInt()
         {
             return _products.Sum(x => x.Price);
         }

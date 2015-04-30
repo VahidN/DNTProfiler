@@ -125,6 +125,16 @@ namespace DNTProfiler.Common.Profiler
             if (interceptionCommandContext.DataTable != null && interceptionCommandContext.DataTable.Rows != null)
             {
                 commandResult.RowsReturned = interceptionCommandContext.DataTable.Rows.Count;
+
+                foreach (DataColumn column in interceptionCommandContext.DataTable.Columns)
+                {
+                    commandResult.Columns.Add(new ColumnInfo
+                    {
+                        ColumnName = column.ColumnName,
+                        DataType = column.DataType.ToString(),
+                        Ordinal = column.Ordinal
+                    });
+                }
             }
 
             _baseInfoQueue.Enqueue(commandResult);

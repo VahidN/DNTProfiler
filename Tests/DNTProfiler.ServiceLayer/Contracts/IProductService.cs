@@ -8,7 +8,7 @@ namespace DNTProfiler.ServiceLayer.Contracts
         void AddNewProduct(Product product);
         IList<Product> GetAllProductsIncludeCategory();
         IList<Product> GetAllProductsStartWith(string name);
-        int GetTotalPriceSumInt();
+        double GetTotalPriceSumInt();
         long GetTotalPriceSumLong();
         IList<Product> GetAllProducts();
         IEnumerable<Product> GetAllProductsWithPriceGreaterThan(int value);

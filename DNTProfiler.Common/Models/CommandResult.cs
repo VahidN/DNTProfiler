@@ -1,11 +1,16 @@
-﻿namespace DNTProfiler.Common.Models
+﻿using System.Collections.Generic;
+
+namespace DNTProfiler.Common.Models
 {
     public class CommandResult : BaseInfo
     {
         public CommandResult()
         {
             InfoType = InfoType.CommandResult;
+            Columns = new List<ColumnInfo>();
         }
+
+        public IList<ColumnInfo> Columns { set; get; }
 
         public int? CommandId { set; get; }
 
@@ -21,9 +26,18 @@
 
         public int? RowsReturned { set; get; }
 
-        public override string ToString()
+        public override bool Equals(object obj)
         {
-            return ResultString;
+            var commandResult = obj as CommandResult;
+            if (commandResult == null)
+                return false;
+
+            return this.ConnectionId == commandResult.ConnectionId &&
+                   this.ObjectContextId == commandResult.ObjectContextId &&
+                   this.TransactionId == commandResult.TransactionId &&
+                   this.CommandId == commandResult.CommandId &&
+                   this.AtDateTime == commandResult.AtDateTime &&
+                   this.ApplicationIdentity.Equals(commandResult.ApplicationIdentity);
         }
 
         public override int GetHashCode()
@@ -42,18 +56,9 @@
             }
         }
 
-        public override bool Equals(object obj)
+        public override string ToString()
         {
-            var commandResult = obj as CommandResult;
-            if (commandResult == null)
-                return false;
-
-            return this.ConnectionId == commandResult.ConnectionId &&
-                   this.ObjectContextId == commandResult.ObjectContextId &&
-                   this.TransactionId == commandResult.TransactionId &&
-                   this.CommandId == commandResult.CommandId &&
-                   this.AtDateTime == commandResult.AtDateTime &&
-                   this.ApplicationIdentity.Equals(commandResult.ApplicationIdentity);
+            return ResultString;
         }
     }
 }
