@@ -230,6 +230,10 @@ namespace DNTProfiler.Infrastructure.Core
             foreach (var commandConnection in connections)
             {
                 commandConnection.DisposedAt = item.AtDateTime;
+                if (commandConnection.ClosedAt != null)
+                {
+                    commandConnection.Duration = (int)Math.Round((commandConnection.ClosedAt.Value - commandConnection.AtDateTime).TotalMilliseconds);
+                }
             }
 
             var contextIds = connections.Select(x => x.ObjectContextId).ToList();

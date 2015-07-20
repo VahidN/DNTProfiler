@@ -8,6 +8,7 @@ namespace DNTProfiler.Common.Models
         private DateTime? _closedAt;
         private int _commandsCount;
         private DateTime? _disposedAt;
+        private int _duration;
 
         public CommandConnection()
         {
@@ -46,6 +47,16 @@ namespace DNTProfiler.Common.Models
             {
                 _disposedAt = value;
                 NotifyPropertyChanged(() => DisposedAt);
+            }
+        }
+
+        public int Duration
+        {
+            get { return _duration; }
+            set
+            {
+                _duration = value;
+                NotifyPropertyChanged(() => Duration);
             }
         }
 

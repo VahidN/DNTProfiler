@@ -20,10 +20,7 @@ namespace DNTProfiler.UnparametrizedWhereClauses
 -- Enabling Parameterization
 ALTER DATABASE dbName SET PARAMETERIZATION FORCED;
 -- Optimizing for Ad hoc Workloads
-sp_configure 'show advanced options',1;
-RECONFIGURE;
-sp_configure 'optimize for ad hoc workloads',1;
-RECONFIGURE;" + Environment.NewLine
+sp_configure 'show advanced options',1; RECONFIGURE; sp_configure 'optimize for ad hoc workloads',1; RECONFIGURE;" + Environment.NewLine
             };
 
             PluginAuthor = new PluginAuthor
