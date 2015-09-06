@@ -147,6 +147,7 @@
     <Compile Include="ScriptDomVisitors\SqlNormalizerVisitor.cs" />
     <Compile Include="ScriptDomVisitors\UnboundedResultSetVisitor.cs" />
     <Compile Include="ScriptDomVisitors\UnparametrizedWhereClausesVisitor.cs" />
+    <Compile Include="ScriptDomVisitors\UseFirstLevelCacheVisitor.cs" />
     <Compile Include="StackTraces\MethodDeclarations.cs" />
     <Compile Include="StackTraces\OpenStackTraceFile.cs" />
     <Compile Include="ViewModels\ChartsViewModelBase.cs" />

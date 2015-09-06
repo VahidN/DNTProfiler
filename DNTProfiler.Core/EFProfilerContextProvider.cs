@@ -1,5 +1,8 @@
-﻿using System.Data;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
+using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure.Interception;
 using System.Linq;
@@ -12,6 +15,8 @@ namespace DNTProfiler.EntityFramework.Core
 {
     public static class EFProfilerContextProvider
     {
+        private static readonly ConcurrentDictionary<int, HashSet<string>> _keys = new ConcurrentDictionary<int, HashSet<string>>();
+
         public static DbCommandContext GetLoggedDbCommand<TResult>(DbCommand command, DbCommandInterceptionContext<TResult> interceptionContext)
         {
             var context = new DbCommandContext
@@ -82,10 +87,42 @@ namespace DNTProfiler.EntityFramework.Core
                 Exception = interceptionContext.OriginalException ?? interceptionContext.Exception,
                 Result = interceptionContext.Result,
                 ElapsedMilliseconds = elapsedMilliseconds,
-                DataTable = dataTable
+                DataTable = dataTable,
+                Keys = getKeys(interceptionContext)
             };
             setBaseInfo(interceptionContext, context);
             return context;
+        }
+
+        private static ISet<string> getKeys(DbInterceptionContext interceptionContext)
+        {
+            if (interceptionContext.ObjectContexts == null || !interceptionContext.ObjectContexts.Any())
+            {
+                return new HashSet<string>();
+            }
+
+            var objectContext = interceptionContext.ObjectContexts.First();
+            var objectContextId = UniqueIdExtensions<ObjectContext>.GetUniqueId(objectContext).ToInt();
+
+            HashSet<string> keys;
+            if (_keys.TryGetValue(objectContextId, out keys))
+            {
+                return keys;
+            }
+
+            var results = new HashSet<string>();
+            var entityProps = objectContext.MetadataWorkspace.GetItems<EntityType>(DataSpace.SSpace);
+            foreach (var entityType in entityProps)
+            {
+                foreach (var edmProperty in entityType.KeyProperties)
+                {
+                    results.Add(edmProperty.Name);
+                }
+            }
+
+            _keys.TryAdd(objectContextId, results);
+
+            return results;
         }
 
         private static void setBaseInfo(DbInterceptionContext interceptionContext, DbContextBase info)

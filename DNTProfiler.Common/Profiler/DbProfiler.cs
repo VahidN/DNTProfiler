@@ -132,14 +132,14 @@ namespace DNTProfiler.Common.Profiler
                     {
                         ColumnName = column.ColumnName,
                         DataType = column.DataType.ToString(),
-                        Ordinal = column.Ordinal
+                        Ordinal = column.Ordinal,
+                        IsKey = interceptionCommandContext.Keys != null && interceptionCommandContext.Keys.Contains(column.ColumnName)
                     });
                 }
             }
 
             _baseInfoQueue.Enqueue(commandResult);
         }
-
 
         public void LogTransaction(DbTransaction transaction,
                                    DbTransactionContext interceptionTransactionContext,

@@ -92,5 +92,45 @@ namespace DNTProfiler.ServiceLayer
         {
             return _products.Cacheable().ToList();
         }
+
+        public Product FindKeyUsingFirstOrDefault(int id)
+        {
+            return _products.FirstOrDefault(x => x.Id == id);
+        }
+
+        public Product FindKeyUsingFindMethod(int id)
+        {
+            return _products.Find(id);
+        }
+
+        public void IssueFirstOrDefaultAndFind(int id)
+        {
+            var product1 = _products.FirstOrDefault(x => x.Id == id);
+            var product2 = _products.Find(id);
+            if (product1 != null && product2 != null)
+            {
+                //...
+            }
+        }
+
+        public void IssueFindAndFirstOrDefault(int id)
+        {
+            var product2 = _products.Find(id);
+            var product1 = _products.FirstOrDefault(x => x.Id == id);
+            if (product1 != null && product2 != null)
+            {
+                //...
+            }
+        }
+
+        public Product FindNonKeyUsingFirstOrDefault(int minPrice)
+        {
+            return _products.FirstOrDefault(x => x.Price >= minPrice);
+        }
+
+        public Product FindKeyUsingSingleOrDefault(int id)
+        {
+            return _products.SingleOrDefault(x => x.Id == id);
+        }
     }
 }

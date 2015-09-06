@@ -3,8 +3,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DNTProfiler.TestEFContext.Domain
 {
+    [Table("MyProducts")]
     public class Product
     {
+        [Key]
+        [Column(name: "MyProductId")]
         public int Id { get; set; }
 
         [Index(IsUnique = true)]

@@ -32,7 +32,7 @@ using System.Runtime.InteropServices;
 // Manually incremented for major releases, such as adding many new features to the solution or introducing breaking changes.
 int MajorVersion = 1;
 // Manually incremented for minor releases, such as introducing small changes to existing features or adding new features.
-int MinorVersion = 6;
+int MinorVersion = 7;
 // Typically incremented automatically as part of every build performed on the Build Server.
 int BuildNumber = (int)(DateTime.UtcNow - new DateTime(2013,1,1)).TotalDays;
 // Incremented for QFEs (a.k.a. “hotfixes” or patches) to builds released into the Production environment.

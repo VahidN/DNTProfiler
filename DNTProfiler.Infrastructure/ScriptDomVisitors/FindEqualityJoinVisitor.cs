@@ -59,7 +59,7 @@ namespace DNTProfiler.Infrastructure.ScriptDomVisitors
               _aliases.ContainsKey(identifier.Identifiers[0].Value))
             {
                 return
-                  _aliases[identifier.Identifiers[0].Value] + "." + identifier.Identifiers[1].Value;
+                  string.Format("{0}.{1}", _aliases[identifier.Identifiers[0].Value], identifier.Identifiers[1].Value);
             }
             return identifier.AsObjectName();
         }
