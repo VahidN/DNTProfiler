@@ -38,5 +38,9 @@ namespace DNTProfiler.ServiceLayer.Contracts
         Product FindKeyUsingFindMethod(int id);
 
         Product FindKeyUsingSingleOrDefault(int id);
+
+        IList<Product> GetProductsPagedListWithParametrizedSkipAndTake(int pageNumber, int recordsPerPage = 8);
+
+        IList<Product> GetProductsPagedListWithoutParametrizedSkipAndTake(int pageNumber, int recordsPerPage = 8);
     }
 }

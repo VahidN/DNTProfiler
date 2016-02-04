@@ -83,7 +83,7 @@ namespace DNTProfiler.ServiceLayer
                 .Select(product => new { product, category = product.Category }) // to avoid duplicate joins to the same table
                 .Where(@t => @t.product.Id > 1)
                 .Where(@t => @t.category.Title.Contains("c") && @t.category.Id > 1 && @t.product.Price > 100)
-                .Select(@t => new {@t.product, @t.category});
+                .Select(@t => new { @t.product, @t.category });
 
             return query.ToList().Select(x => x.product).ToList();
         }
@@ -126,6 +126,30 @@ namespace DNTProfiler.ServiceLayer
         public Product FindNonKeyUsingFirstOrDefault(int minPrice)
         {
             return _products.FirstOrDefault(x => x.Price >= minPrice);
+        }
+
+        public IList<Product> GetProductsPagedListWithParametrizedSkipAndTake(
+            int pageNumber, int recordsPerPage = 8)
+        {
+            var skipRecords = pageNumber * recordsPerPage;
+            return _products
+                       .OrderBy(x => x.Id)
+                       .Skip(() => skipRecords)
+                       .Take(() => recordsPerPage)
+                       .ToList();
+
+        }
+
+        public IList<Product> GetProductsPagedListWithoutParametrizedSkipAndTake(
+            int pageNumber, int recordsPerPage = 8)
+        {
+            var skipRecords = pageNumber * recordsPerPage;
+            return _products
+                       .OrderBy(x => x.Id)
+                       .Skip(skipRecords)
+                       .Take(recordsPerPage)
+                       .ToList();
+
         }
 
         public Product FindKeyUsingSingleOrDefault(int id)
