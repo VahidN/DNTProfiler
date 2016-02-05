@@ -17,13 +17,13 @@ namespace DNTProfiler.Infrastructure.ScriptDomVisitors
         private static readonly ConcurrentDictionary<string, TSqlScript> _sqlFragments =
             new ConcurrentDictionary<string, TSqlScript>();
 
-        public static TSqlScript GetSqlFragment(string tSql, string sqlHash, int timeoutSeconds = 7)
+        public static TSqlScript GetSqlFragment(string tSql, string sqlHash, int timeoutSeconds = 7, bool readFromCache = true)
         {
             var runner = TimedRunner.RunWithTimeout(() =>
             {
                 try
                 {
-                    return getSqlFragment(tSql, sqlHash);
+                    return getSqlFragment(tSql, sqlHash, readFromCache);
                 }
                 catch (Exception ex)
                 {
@@ -42,10 +42,10 @@ namespace DNTProfiler.Infrastructure.ScriptDomVisitors
             return runner.Result;
         }
 
-        private static TSqlScript getSqlFragment(string tSql, string sqlHash)
+        private static TSqlScript getSqlFragment(string tSql, string sqlHash, bool readFromCache)
         {
             TSqlScript sqlFragment;
-            if (_sqlFragments.TryGetValue(sqlHash, out sqlFragment))
+            if (readFromCache && _sqlFragments.TryGetValue(sqlHash, out sqlFragment))
             {
                 return sqlFragment;
             }
@@ -59,7 +59,10 @@ namespace DNTProfiler.Infrastructure.ScriptDomVisitors
 
             if (errors == null || !errors.Any())
             {
-                _sqlFragments.TryAdd(sqlHash, sqlFragment);
+                if (!readFromCache)
+                {
+                    _sqlFragments.TryAdd(sqlHash, sqlFragment);
+                }
                 return sqlFragment;
             }
 

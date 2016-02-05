@@ -18,7 +18,7 @@ namespace DNTProfiler.Infrastructure.ScriptDomVisitors
                 return formattedTSql;
             }
 
-            var sqlFragment = SqlFragmentProvider.GetSqlFragment(tSql, sqlHash);
+            var sqlFragment = SqlFragmentProvider.GetSqlFragment(tSql, sqlHash, readFromCache: false);
             if (sqlFragment == null)
             {
                 return tSql;

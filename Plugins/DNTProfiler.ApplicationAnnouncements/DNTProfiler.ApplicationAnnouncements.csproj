@@ -40,6 +40,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -54,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationAnnouncementsPlugin.cs" />
+    <Compile Include="Core\UseLatestVersionOfIE.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Page Include="Main.xaml">
       <Generator>MSBuild:Compile</Generator>

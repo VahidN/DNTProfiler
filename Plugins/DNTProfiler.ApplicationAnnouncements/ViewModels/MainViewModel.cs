@@ -1,4 +1,6 @@
 ﻿using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using DNTProfiler.ApplicationAnnouncements.Core;
 using DNTProfiler.ApplicationAnnouncements.Models;
 using DNTProfiler.Common.Mvvm;
@@ -47,6 +49,11 @@ namespace DNTProfiler.ApplicationAnnouncements.ViewModels
                 }
                 return stringBuilder.ToString();
             };
+
+            Task.Factory.StartNew(() => UseLatestVersionOfIE.SetWebBrowserVersion()
+                , CancellationToken.None
+                , TaskCreationOptions.None
+                , TaskScheduler.FromCurrentSynchronizationContext());
         }
     }
 }
